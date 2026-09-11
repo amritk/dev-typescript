@@ -3,7 +3,7 @@ import { spawnSync } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
 
 /** Package visibility this SDK publishes with, from `publish.npm.access`. */
-const ACCESS = 'restricted';
+const ACCESS = 'public';
 
 /**
  * Dist-tag a stable release lands on, from `publish.npm.tag`. `null` leaves npm on its own default,
