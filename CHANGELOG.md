@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/amritk/dev-typescript/compare/v0.2.0...v0.2.1) (2026-09-11)
+
+
+### Chores
+
+* **api:** update generated SDK content ([b069477](https://github.com/amritk/dev-typescript/commit/b0694771f6e247a738f2ea0709a590c28d4a11a4))
+
 ## [0.2.0](https://github.com/amritk/dev-typescript/compare/v0.1.0...v0.2.0) (2026-09-11)
 
 
