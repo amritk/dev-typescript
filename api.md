@@ -1,4 +1,4 @@
-# Demo API (Scalar Galaxy) TypeScript API
+# Scalar Galaxy TypeScript API
 
 Complete reference of every operation, grouped by resource. See [the README](./README.md) for usage and configuration.
 
@@ -21,9 +21,9 @@ Complete reference of every operation, grouped by resource. See [the README](./R
 ## Setup
 
 ```ts
-import DemoAPIScalarGalaxy from '@scalar-bw0gp/demo-api-scalar-galaxy';
+import ScalarGalaxy from '@amritk/galaxy-dev-ts';
 
-const client = new DemoAPIScalarGalaxy({
+const client = new ScalarGalaxy({
   bearerAuth: process.env['BEARER_AUTH'], // defaults to the BEARER_AUTH env var
   environment: 'production',
 });
