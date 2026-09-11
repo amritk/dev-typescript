@@ -1,24 +1,24 @@
 ---
-name: demo-api-scalar-galaxy-typescript-sdk
-description: "TypeScript SDK for Demo API (Scalar Galaxy). Use when writing TypeScript code that calls Demo API (Scalar Galaxy) with the @scalar-bw0gp/dev-typescript-test package: installing it, constructing and authenticating the client, and calling API operations."
+name: scalar-galaxy-typescript-sdk
+description: "TypeScript SDK for Scalar Galaxy API. Use when writing TypeScript code that calls Scalar Galaxy API with the @amritk/galaxy-dev-ts package: installing it, constructing and authenticating the client, and calling API operations."
 ---
 
-# Demo API (Scalar Galaxy) TypeScript SDK
+# Scalar Galaxy TypeScript SDK
 
-Generated TypeScript client for Demo API (Scalar Galaxy), published as `@scalar-bw0gp/dev-typescript-test`. Use the generated client instead of hand-writing HTTP requests.
+Generated TypeScript client for Scalar Galaxy API, published as `@amritk/galaxy-dev-ts`. Use the generated client instead of hand-writing HTTP requests.
 
 ## Install
 
 ```sh
-npm install @scalar-bw0gp/dev-typescript-test
+npm install @amritk/galaxy-dev-ts
 ```
 
 ## Client setup and authentication
 
 ```ts
-import DemoAPIScalarGalaxy from '@scalar-bw0gp/dev-typescript-test';
+import ScalarGalaxy from '@amritk/galaxy-dev-ts';
 
-const client = new DemoAPIScalarGalaxy({
+const client = new ScalarGalaxy({
   bearerAuth: process.env['BEARER_AUTH'], // defaults to the BEARER_AUTH env var
   environment: 'production',
 });
@@ -38,9 +38,9 @@ Provide credentials using the options below. Environment variables are read auto
 ## Calling operations
 
 ```ts
-import DemoAPIScalarGalaxy from '@scalar-bw0gp/dev-typescript-test';
+import ScalarGalaxy from '@amritk/galaxy-dev-ts';
 
-const client = new DemoAPIScalarGalaxy({
+const client = new ScalarGalaxy({
   bearerAuth: process.env['BEARER_AUTH'], // defaults to the BEARER_AUTH env var
   environment: 'production',
 });
@@ -60,7 +60,7 @@ Method names, parameter shapes, and response types are generated from the API de
 Non-success responses throw generated API errors. Error objects expose status, headers, response body, and request metadata where the target runtime supports it.
 
 ```ts
-import { APIError } from '@scalar-bw0gp/dev-typescript-test';
+import { APIError } from '@amritk/galaxy-dev-ts';
 
 try {
   const planet = await client.planets.list({
