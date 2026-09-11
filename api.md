@@ -21,7 +21,7 @@ Complete reference of every operation, grouped by resource. See [the README](./R
 ## Setup
 
 ```ts
-import DemoAPIScalarGalaxy from '@scalar-bw0gp/demo-api-scalar-galaxy';
+import DemoAPIScalarGalaxy from '@scalar-bw0gp/dev-typescript-test';
 
 const client = new DemoAPIScalarGalaxy({
   bearerAuth: process.env['BEARER_AUTH'], // defaults to the BEARER_AUTH env var

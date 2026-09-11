@@ -1,22 +1,22 @@
 ---
 name: demo-api-scalar-galaxy-typescript-sdk
-description: "TypeScript SDK for Demo API (Scalar Galaxy). Use when writing TypeScript code that calls Demo API (Scalar Galaxy) with the @scalar-bw0gp/demo-api-scalar-galaxy package: installing it, constructing and authenticating the client, and calling API operations."
+description: "TypeScript SDK for Demo API (Scalar Galaxy). Use when writing TypeScript code that calls Demo API (Scalar Galaxy) with the @scalar-bw0gp/dev-typescript-test package: installing it, constructing and authenticating the client, and calling API operations."
 ---
 
 # Demo API (Scalar Galaxy) TypeScript SDK
 
-Generated TypeScript client for Demo API (Scalar Galaxy), published as `@scalar-bw0gp/demo-api-scalar-galaxy`. Use the generated client instead of hand-writing HTTP requests.
+Generated TypeScript client for Demo API (Scalar Galaxy), published as `@scalar-bw0gp/dev-typescript-test`. Use the generated client instead of hand-writing HTTP requests.
 
 ## Install
 
 ```sh
-npm install @scalar-bw0gp/demo-api-scalar-galaxy
+npm install @scalar-bw0gp/dev-typescript-test
 ```
 
 ## Client setup and authentication
 
 ```ts
-import DemoAPIScalarGalaxy from '@scalar-bw0gp/demo-api-scalar-galaxy';
+import DemoAPIScalarGalaxy from '@scalar-bw0gp/dev-typescript-test';
 
 const client = new DemoAPIScalarGalaxy({
   bearerAuth: process.env['BEARER_AUTH'], // defaults to the BEARER_AUTH env var
@@ -38,7 +38,7 @@ Provide credentials using the options below. Environment variables are read auto
 ## Calling operations
 
 ```ts
-import DemoAPIScalarGalaxy from '@scalar-bw0gp/demo-api-scalar-galaxy';
+import DemoAPIScalarGalaxy from '@scalar-bw0gp/dev-typescript-test';
 
 const client = new DemoAPIScalarGalaxy({
   bearerAuth: process.env['BEARER_AUTH'], // defaults to the BEARER_AUTH env var
@@ -60,7 +60,7 @@ Method names, parameter shapes, and response types are generated from the API de
 Non-success responses throw generated API errors. Error objects expose status, headers, response body, and request metadata where the target runtime supports it.
 
 ```ts
-import { APIError } from '@scalar-bw0gp/demo-api-scalar-galaxy';
+import { APIError } from '@scalar-bw0gp/dev-typescript-test';
 
 try {
   const planet = await client.planets.list({
