@@ -1,6 +1,6 @@
-# Demo API (Scalar Galaxy)
+# Scalar Galaxy
 
-This library provides convenient access to the Demo API (Scalar Galaxy) from TypeScript or JavaScript.
+This library provides convenient access to the Scalar Galaxy REST API from TypeScript or JavaScript.
 
 The full API of this library can be found in [api.md](./api.md).
 
@@ -25,7 +25,7 @@ The full API of this library can be found in [api.md](./api.md).
 ## Installation
 
 ```sh
-npm install @scalar-bw0gp/dev-typescript-test
+npm install @amritk/galaxy-dev-ts
 ```
 
 <br />
@@ -33,9 +33,9 @@ npm install @scalar-bw0gp/dev-typescript-test
 ## Usage
 
 ```ts
-import DemoAPIScalarGalaxy from '@scalar-bw0gp/dev-typescript-test';
+import ScalarGalaxy from '@amritk/galaxy-dev-ts';
 
-const client = new DemoAPIScalarGalaxy({
+const client = new ScalarGalaxy({
   bearerAuth: process.env['BEARER_AUTH'], // defaults to the BEARER_AUTH env var
   environment: 'production',
 });
@@ -86,7 +86,7 @@ Declared schemes:
 Non-success responses throw generated API errors. Error objects expose status, headers, response body, and request metadata where the target runtime supports it.
 
 ```ts
-import { APIError } from '@scalar-bw0gp/dev-typescript-test';
+import { APIError } from '@amritk/galaxy-dev-ts';
 
 try {
   const planet = await client.planets.list({
@@ -110,9 +110,9 @@ Documented error statuses: `400`, `401`, `403`, `404`, `409`, `422`.
 Configure the generated client by setting any of these options when you create it.
 
 ```ts
-import DemoAPIScalarGalaxy from '@scalar-bw0gp/dev-typescript-test';
+import ScalarGalaxy from '@amritk/galaxy-dev-ts';
 
-const client = new DemoAPIScalarGalaxy({
+const client = new ScalarGalaxy({
   timeout: 60000,
   maxRetries: 2,
   logLevel: 'debug',

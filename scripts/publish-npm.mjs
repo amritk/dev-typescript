@@ -9,7 +9,7 @@ const ACCESS = 'restricted';
  * Dist-tag a stable release lands on, from `publish.npm.tag`. `null` leaves npm on its own default,
  * `latest`. A prerelease derives its own tag below and never reads this.
  */
-const STABLE_DIST_TAG = 'beta';
+const STABLE_DIST_TAG = null;
 
 /** Reads the package identity once so every registry operation uses the same metadata. */
 export const readPackageMetadata = () => {
