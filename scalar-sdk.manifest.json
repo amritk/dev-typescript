@@ -1,7 +1,7 @@
 {
-  "name": "ScalarGalaxy",
-  "slug": "scalarGalaxy",
-  "generatorVersion": "0.32.12",
+  "name": "DemoApiScalarGoolaxy",
+  "slug": "demoApiScalarGoolaxy",
+  "generatorVersion": "0.32.14",
   "servers": [
     "https://galaxy.scalar.com",
     "{protocol}://void.scalar.com/{path}"
