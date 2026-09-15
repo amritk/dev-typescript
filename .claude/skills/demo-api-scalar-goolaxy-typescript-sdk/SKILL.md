@@ -1,24 +1,24 @@
 ---
-name: scalar-galaxy-typescript-sdk
-description: "TypeScript SDK for Scalar Galaxy API. Use when writing TypeScript code that calls Scalar Galaxy API with the @amritk/galaxy-dev-ts package: installing it, constructing and authenticating the client, and calling API operations."
+name: demo-api-scalar-goolaxy-typescript-sdk
+description: "TypeScript SDK for Demo API (Scalar Goolaxy). Use when writing TypeScript code that calls Demo API (Scalar Goolaxy) with the @scalar-69t4l/demo-api-scalar-goolaxy package: installing it, constructing and authenticating the client, and calling API operations."
 ---
 
-# Scalar Galaxy TypeScript SDK
+# Demo API (Scalar Goolaxy) TypeScript SDK
 
-Generated TypeScript client for Scalar Galaxy API, published as `@amritk/galaxy-dev-ts`. Use the generated client instead of hand-writing HTTP requests.
+Generated TypeScript client for Demo API (Scalar Goolaxy), published as `@scalar-69t4l/demo-api-scalar-goolaxy`. Use the generated client instead of hand-writing HTTP requests.
 
 ## Install
 
 ```sh
-npm install @amritk/galaxy-dev-ts
+npm install @scalar-69t4l/demo-api-scalar-goolaxy
 ```
 
 ## Client setup and authentication
 
 ```ts
-import ScalarGalaxy from '@amritk/galaxy-dev-ts';
+import DemoAPIScalarGoolaxy from '@scalar-69t4l/demo-api-scalar-goolaxy';
 
-const client = new ScalarGalaxy({
+const client = new DemoAPIScalarGoolaxy({
   bearerAuth: process.env['BEARER_AUTH'], // defaults to the BEARER_AUTH env var
   environment: 'production',
 });
@@ -38,9 +38,9 @@ Provide credentials using the options below. Environment variables are read auto
 ## Calling operations
 
 ```ts
-import ScalarGalaxy from '@amritk/galaxy-dev-ts';
+import DemoAPIScalarGoolaxy from '@scalar-69t4l/demo-api-scalar-goolaxy';
 
-const client = new ScalarGalaxy({
+const client = new DemoAPIScalarGoolaxy({
   bearerAuth: process.env['BEARER_AUTH'], // defaults to the BEARER_AUTH env var
   environment: 'production',
 });
@@ -60,7 +60,7 @@ Method names, parameter shapes, and response types are generated from the API de
 Non-success responses throw generated API errors. Error objects expose status, headers, response body, and request metadata where the target runtime supports it.
 
 ```ts
-import { APIError } from '@amritk/galaxy-dev-ts';
+import { APIError } from '@scalar-69t4l/demo-api-scalar-goolaxy';
 
 try {
   const planet = await client.planets.list({

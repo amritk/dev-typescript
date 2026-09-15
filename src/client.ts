@@ -118,7 +118,7 @@ export interface ClientOptions {
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
    *
-   * Defaults to process.env["SCALAR_BW0_GP_BASE_URL"].
+   * Defaults to process.env["SCALAR_69_T4_L_BASE_URL"].
    */
   baseURL?: string | null | undefined;
 
@@ -173,7 +173,7 @@ export interface ClientOptions {
   /**
    * Set the log level.
    *
-   * Defaults to process.env["SCALAR_BW0_GP_LOG"] or 'warn' if it isn't set.
+   * Defaults to process.env["SCALAR_69_T4_L_LOG"] or 'warn' if it isn't set.
    */
   logLevel?: LogLevel | undefined;
 
@@ -185,12 +185,12 @@ export interface ClientOptions {
   logger?: Logger | undefined;
 }
 
-export type ScalarGalaxyOptions = ClientOptions;
+export type DemoAPIScalarGoolaxyOptions = ClientOptions;
 
 /**
- * API Client for interfacing with the ScalarGalaxy API.
+ * API Client for interfacing with the DemoApiScalarGoolaxy API.
  */
-export class ScalarGalaxy {
+export class DemoAPIScalarGoolaxy {
   bearerAuth: string | AuthTokenProvider | null;
   basicAuthUsername: string | AuthTokenProvider | null;
   basicAuthPassword: string | AuthTokenProvider | null;
@@ -215,7 +215,7 @@ export class ScalarGalaxy {
   private _options: ClientOptions;
 
   /**
-   * API Client for interfacing with the ScalarGalaxy API.
+   * API Client for interfacing with the DemoApiScalarGoolaxy API.
    *
    * @param {string | AuthTokenProvider | null | undefined} [opts.bearerAuth=process.env["BEARER_AUTH"] ?? null]
    * @param {string | AuthTokenProvider | null | undefined} [opts.basicAuthUsername=process.env["BASIC_AUTH_USERNAME"] ?? null]
@@ -225,9 +225,9 @@ export class ScalarGalaxy {
    * @param {string | AuthTokenProvider | null | undefined} [opts.apiKeyCookie=process.env["API_KEY_COOKIE"] ?? null]
    * @param {string | AuthTokenProvider | null | undefined} [opts.oAuth2=process.env["O_AUTH2"] ?? null]
    * @param {string | AuthTokenProvider | null | undefined} [opts.openIDConnect=process.env["OPEN_ID_CONNECT"] ?? null]
-   * @param {string | null | undefined} [opts.webhookSecret=process.env["SCALAR_BW0_GP_WEBHOOK_SECRET"] ?? null]
+   * @param {string | null | undefined} [opts.webhookSecret=process.env["SCALAR_69_T4_L_WEBHOOK_SECRET"] ?? null]
    * @param {Environment} [opts.environment=production] - Specifies the environment URL to use for the API.
-   * @param {string} [opts.baseURL=process.env["SCALAR_BW0_GP_BASE_URL"] ?? https://galaxy.scalar.com] - Override the default base URL for the API.
+   * @param {string} [opts.baseURL=process.env["SCALAR_69_T4_L_BASE_URL"] ?? https://galaxy.scalar.com] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
    * @param {Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -236,7 +236,7 @@ export class ScalarGalaxy {
    * @param {Record<string, string | undefined>} opts.defaultQuery - Default query parameters to include with every request to the API.
    */
   constructor({
-    baseURL = readEnv('SCALAR_BW0_GP_BASE_URL'),
+    baseURL = readEnv('SCALAR_69_T4_L_BASE_URL'),
     bearerAuth = readEnv('BEARER_AUTH') ?? null,
     basicAuthUsername = readEnv('BASIC_AUTH_USERNAME') ?? null,
     basicAuthPassword = readEnv('BASIC_AUTH_PASSWORD') ?? null,
@@ -245,7 +245,7 @@ export class ScalarGalaxy {
     apiKeyCookie = readEnv('API_KEY_COOKIE') ?? null,
     oAuth2 = readEnv('O_AUTH2') ?? null,
     openIDConnect = readEnv('OPEN_ID_CONNECT') ?? null,
-    webhookSecret = readEnv('SCALAR_BW0_GP_WEBHOOK_SECRET') ?? null,
+    webhookSecret = readEnv('SCALAR_69_T4_L_WEBHOOK_SECRET') ?? null,
     ...opts
   }: ClientOptions = {}) {
     const options: ClientOptions = {
@@ -264,26 +264,26 @@ export class ScalarGalaxy {
     const environment = options.environment ?? 'production';
     const baseURLOverridden = baseURL !== null && baseURL !== undefined && baseURL !== '';
     if (baseURLOverridden && options.environment)
-      throw new Errors.ScalarGalaxyError(
-        'Ambiguous URL; The `baseURL` option (or SCALAR_BW0_GP_BASE_URL env var) and the `environment` option are given. If you want to use the environment you must pass baseURL: null',
+      throw new Errors.DemoAPIScalarGoolaxyError(
+        'Ambiguous URL; The `baseURL` option (or SCALAR_69_T4_L_BASE_URL env var) and the `environment` option are given. If you want to use the environment you must pass baseURL: null',
       );
     const defaultBaseURL = environments[environment];
     this.baseURL = options.baseURL || defaultBaseURL;
-    this.timeout = options.timeout ?? ScalarGalaxy.DEFAULT_TIMEOUT /* 1 minute */;
+    this.timeout = options.timeout ?? DemoAPIScalarGoolaxy.DEFAULT_TIMEOUT /* 1 minute */;
     this.logger = options.logger ?? console;
     const defaultLogLevel = 'warn';
     // Set default logLevel early so that we can log a warning in parseLogLevel.
     this.logLevel = defaultLogLevel;
     this.logLevel =
       parseLogLevel(options.logLevel, 'ClientOptions.logLevel', this) ??
-      parseLogLevel(readEnv('SCALAR_BW0_GP_LOG'), 'process.env["SCALAR_BW0_GP_LOG"]', this) ??
+      parseLogLevel(readEnv('SCALAR_69_T4_L_LOG'), 'process.env["SCALAR_69_T4_L_LOG"]', this) ??
       defaultLogLevel;
     this.fetchOptions = options.fetchOptions;
     this.maxRetries = options.maxRetries ?? 2;
     this.fetch = options.fetch ?? Shims.getDefaultFetch();
     this.#encoder = Opts.FallbackEncoder;
 
-    const customHeadersEnv = readEnv('SCALAR_BW0_GP_CUSTOM_HEADERS');
+    const customHeadersEnv = readEnv('SCALAR_69_T4_L_CUSTOM_HEADERS');
     if (customHeadersEnv) {
       const parsed: Record<string, string> = {};
       for (const line of customHeadersEnv.split('\n')) {
@@ -991,7 +991,9 @@ export class ScalarGalaxy {
     if (value == null) return undefined;
     const token = typeof value === 'function' ? await value() : value;
     if (!token)
-      throw new Errors.ScalarGalaxyError(`Expected '${optionName}' to resolve to a non-empty string.`);
+      throw new Errors.DemoAPIScalarGoolaxyError(
+        `Expected '${optionName}' to resolve to a non-empty string.`,
+      );
     return token;
   }
 
@@ -1002,14 +1004,16 @@ export class ScalarGalaxy {
     if (value == null) return undefined;
     const token = typeof value === 'function' ? value() : value;
     if (typeof token !== 'string' || !token)
-      throw new Errors.ScalarGalaxyError(`Expected '${optionName}' to resolve to a non-empty string.`);
+      throw new Errors.DemoAPIScalarGoolaxyError(
+        `Expected '${optionName}' to resolve to a non-empty string.`,
+      );
     return token;
   }
 
-  static ScalarGalaxy = this;
+  static DemoAPIScalarGoolaxy = this;
   static DEFAULT_TIMEOUT = 60000; // 1 minute
 
-  static ScalarGalaxyError = Errors.ScalarGalaxyError;
+  static DemoAPIScalarGoolaxyError = Errors.DemoAPIScalarGoolaxyError;
   static APIError = Errors.APIError;
   static APIConnectionError = Errors.APIConnectionError;
   static APIConnectionTimeoutError = Errors.APIConnectionTimeoutError;
@@ -1031,12 +1035,12 @@ export class ScalarGalaxy {
   webhooks: Webhooks = new Webhooks(this);
 }
 
-ScalarGalaxy.Planets = Planets;
-ScalarGalaxy.CelestialBodies = CelestialBodies;
-ScalarGalaxy.Authentication = Authentication;
-ScalarGalaxy.Webhooks = Webhooks;
+DemoAPIScalarGoolaxy.Planets = Planets;
+DemoAPIScalarGoolaxy.CelestialBodies = CelestialBodies;
+DemoAPIScalarGoolaxy.Authentication = Authentication;
+DemoAPIScalarGoolaxy.Webhooks = Webhooks;
 
-export declare namespace ScalarGalaxy {
+export declare namespace DemoAPIScalarGoolaxy {
   export type RequestOptions = Opts.RequestOptions;
   export {
     Planets as Planets,
