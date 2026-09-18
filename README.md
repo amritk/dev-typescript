@@ -25,7 +25,7 @@ The full API of this library can be found in [api.md](./api.md).
 ## Installation
 
 ```sh
-npm install @scalar-69t4l/demo-api-scalar-galaxy
+npm install @amritk/galaxy-dev-ts
 ```
 
 <br />
@@ -33,7 +33,7 @@ npm install @scalar-69t4l/demo-api-scalar-galaxy
 ## Usage
 
 ```ts
-import ApiTest from '@scalar-69t4l/demo-api-scalar-galaxy';
+import ApiTest from '@amritk/galaxy-dev-ts';
 
 const client = new ApiTest({
   bearerAuth: process.env['BEARER_AUTH'], // defaults to the BEARER_AUTH env var
@@ -86,7 +86,7 @@ Declared schemes:
 Non-success responses throw generated API errors. Error objects expose status, headers, response body, and request metadata where the target runtime supports it.
 
 ```ts
-import { APIError } from '@scalar-69t4l/demo-api-scalar-galaxy';
+import { APIError } from '@amritk/galaxy-dev-ts';
 
 try {
   const pizza = await client.planets.pizzas.list({
@@ -110,7 +110,7 @@ Documented error statuses: `400`, `401`, `403`, `404`, `409`, `422`.
 Configure the generated client by setting any of these options when you create it.
 
 ```ts
-import ApiTest from '@scalar-69t4l/demo-api-scalar-galaxy';
+import ApiTest from '@amritk/galaxy-dev-ts';
 
 const client = new ApiTest({
   timeout: 60000,

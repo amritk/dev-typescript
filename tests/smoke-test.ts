@@ -13,7 +13,7 @@ import { writeFileSync } from 'node:fs';
 
 // The package exports the client class. The client reads auth and the base URL from the
 // environment, so it needs no constructor options to point at a server.
-import ApiTest from '@scalar-69t4l/demo-api-scalar-galaxy';
+import ApiTest from '@amritk/galaxy-dev-ts';
 
 // One shared client runs every case.
 const client = new ApiTest();

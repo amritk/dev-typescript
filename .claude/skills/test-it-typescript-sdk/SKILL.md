@@ -1,22 +1,22 @@
 ---
 name: test-it-typescript-sdk
-description: "TypeScript SDK for Test it API. Use when writing TypeScript code that calls Test it API with the @scalar-69t4l/demo-api-scalar-galaxy package: installing it, constructing and authenticating the client, and calling API operations."
+description: "TypeScript SDK for Test it API. Use when writing TypeScript code that calls Test it API with the @amritk/galaxy-dev-ts package: installing it, constructing and authenticating the client, and calling API operations."
 ---
 
 # Test it TypeScript SDK
 
-Generated TypeScript client for Test it API, published as `@scalar-69t4l/demo-api-scalar-galaxy`. Use the generated client instead of hand-writing HTTP requests.
+Generated TypeScript client for Test it API, published as `@amritk/galaxy-dev-ts`. Use the generated client instead of hand-writing HTTP requests.
 
 ## Install
 
 ```sh
-npm install @scalar-69t4l/demo-api-scalar-galaxy
+npm install @amritk/galaxy-dev-ts
 ```
 
 ## Client setup and authentication
 
 ```ts
-import ApiTest from '@scalar-69t4l/demo-api-scalar-galaxy';
+import ApiTest from '@amritk/galaxy-dev-ts';
 
 const client = new ApiTest({
   bearerAuth: process.env['BEARER_AUTH'], // defaults to the BEARER_AUTH env var
@@ -38,7 +38,7 @@ Provide credentials using the options below. Environment variables are read auto
 ## Calling operations
 
 ```ts
-import ApiTest from '@scalar-69t4l/demo-api-scalar-galaxy';
+import ApiTest from '@amritk/galaxy-dev-ts';
 
 const client = new ApiTest({
   bearerAuth: process.env['BEARER_AUTH'], // defaults to the BEARER_AUTH env var
@@ -60,7 +60,7 @@ Method names, parameter shapes, and response types are generated from the API de
 Non-success responses throw generated API errors. Error objects expose status, headers, response body, and request metadata where the target runtime supports it.
 
 ```ts
-import { APIError } from '@scalar-69t4l/demo-api-scalar-galaxy';
+import { APIError } from '@amritk/galaxy-dev-ts';
 
 try {
   const pizza = await client.planets.pizzas.list({
