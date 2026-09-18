@@ -5,7 +5,7 @@
   "author": "Test it",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/amritk/scalar-galaxy.git"
+    "url": "git+https://github.com/amritk/dev-typescript.git"
   },
   "type": "module",
   "sideEffects": false,
