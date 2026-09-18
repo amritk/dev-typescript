@@ -1,6 +1,6 @@
 {
-  "name": "TestIt",
-  "slug": "testIt",
+  "name": "ScalarGalaxy",
+  "slug": "scalarGalaxy",
   "generatorVersion": "0.33.1",
   "servers": [
     "https://galaxy.scalar.com",
@@ -1004,20 +1004,18 @@
   ],
   "resources": [
     "planets",
-    "planets.pizzas",
     "celestialBodies",
     "authentication"
   ],
   "publicResources": [
     "planets",
-    "planets.pizzas",
     "celestialBodies",
     "authentication"
   ],
   "operations": [
     {
-      "resource": "planets.pizzas",
-      "publicResource": "planets.pizzas",
+      "resource": "planets",
+      "publicResource": "planets",
       "operation": "list",
       "publicOperation": "list",
       "deprecated": false,
@@ -1060,7 +1058,7 @@
       "publicCookieParams": [],
       "cookieParamDetails": [],
       "paramsModel": {
-        "publicName": "PizzaListParams"
+        "publicName": "PlanetListParams"
       },
       "response": {
         "status": "200",
@@ -1082,8 +1080,8 @@
       "transport": "http"
     },
     {
-      "resource": "planets.pizzas",
-      "publicResource": "planets.pizzas",
+      "resource": "planets",
+      "publicResource": "planets",
       "operation": "create",
       "publicOperation": "create",
       "deprecated": false,
@@ -1198,7 +1196,7 @@
       "publicCookieParams": [],
       "cookieParamDetails": [],
       "paramsModel": {
-        "publicName": "PizzaCreateParams"
+        "publicName": "PlanetCreateParams"
       },
       "requestBody": {
         "contentType": "application/json",
@@ -1279,8 +1277,8 @@
       "transport": "http"
     },
     {
-      "resource": "planets.pizzas",
-      "publicResource": "planets.pizzas",
+      "resource": "planets",
+      "publicResource": "planets",
       "operation": "retrieve",
       "publicOperation": "retrieve",
       "deprecated": false,
@@ -1313,7 +1311,7 @@
       "publicCookieParams": [],
       "cookieParamDetails": [],
       "paramsModel": {
-        "publicName": "PizzaRetrieveParams"
+        "publicName": "PlanetRetrieveParams"
       },
       "response": {
         "status": "200",
@@ -1361,8 +1359,232 @@
       "transport": "http"
     },
     {
-      "resource": "planets.pizzas",
-      "publicResource": "planets.pizzas",
+      "resource": "planets",
+      "publicResource": "planets",
+      "operation": "update",
+      "publicOperation": "update",
+      "deprecated": false,
+      "method": "PUT",
+      "path": "/planets/{planetId}",
+      "pathParams": [
+        "planetId"
+      ],
+      "publicPathParams": [
+        "planetId"
+      ],
+      "queryParams": [],
+      "publicQueryParams": [],
+      "headerParams": [],
+      "publicHeaderParams": [],
+      "bodyParams": [
+        "id",
+        "name",
+        "description",
+        "type",
+        "habitabilityIndex",
+        "physicalProperties",
+        "atmosphere",
+        "discoveredAt",
+        "image",
+        "satellites",
+        "creator",
+        "tags",
+        "lastUpdated",
+        "successCallbackUrl",
+        "failureCallbackUrl"
+      ],
+      "publicBodyParams": [
+        "id",
+        "name",
+        "description",
+        "type",
+        "habitabilityIndex",
+        "physicalProperties",
+        "atmosphere",
+        "discoveredAt",
+        "image",
+        "satellites",
+        "creator",
+        "tags",
+        "lastUpdated",
+        "successCallbackUrl",
+        "failureCallbackUrl"
+      ],
+      "bodyParamDetails": [
+        {
+          "name": "id",
+          "required": true
+        },
+        {
+          "name": "name",
+          "required": true
+        },
+        {
+          "name": "description",
+          "required": false
+        },
+        {
+          "name": "type",
+          "required": true
+        },
+        {
+          "name": "habitabilityIndex",
+          "required": false
+        },
+        {
+          "name": "physicalProperties",
+          "required": false
+        },
+        {
+          "name": "atmosphere",
+          "required": false
+        },
+        {
+          "name": "discoveredAt",
+          "required": false
+        },
+        {
+          "name": "image",
+          "required": false
+        },
+        {
+          "name": "satellites",
+          "required": false
+        },
+        {
+          "name": "creator",
+          "required": false
+        },
+        {
+          "name": "tags",
+          "required": false
+        },
+        {
+          "name": "lastUpdated",
+          "required": false
+        },
+        {
+          "name": "successCallbackUrl",
+          "required": false
+        },
+        {
+          "name": "failureCallbackUrl",
+          "required": false
+        }
+      ],
+      "pathParamDetails": [
+        {
+          "name": "planetId",
+          "required": true,
+          "style": "simple",
+          "explode": false
+        }
+      ],
+      "queryParamDetails": [],
+      "headerParamDetails": [],
+      "cookieParams": [],
+      "publicCookieParams": [],
+      "cookieParamDetails": [],
+      "paramsModel": {
+        "publicName": "PlanetUpdateParams"
+      },
+      "requestBody": {
+        "contentType": "application/json",
+        "encoding": "json",
+        "contents": [
+          {
+            "contentType": "application/json",
+            "encoding": "json"
+          },
+          {
+            "contentType": "application/xml",
+            "encoding": "json"
+          }
+        ],
+        "required": false,
+        "publicName": "body",
+        "publicIdentifier": "body"
+      },
+      "response": {
+        "status": "200",
+        "contentType": "application/json",
+        "encoding": "json",
+        "contents": [
+          {
+            "contentType": "application/json",
+            "encoding": "json"
+          },
+          {
+            "contentType": "application/xml",
+            "encoding": "binary"
+          }
+        ]
+      },
+      "responseModel": {
+        "name": "planet",
+        "publicAliases": []
+      },
+      "result": {
+        "successStatus": "200",
+        "errorStatuses": [
+          "400",
+          "403",
+          "404"
+        ]
+      },
+      "errorResponses": [
+        {
+          "status": "400",
+          "contentType": "application/json",
+          "encoding": "json",
+          "contents": [
+            {
+              "contentType": "application/json",
+              "encoding": "json"
+            },
+            {
+              "contentType": "application/xml",
+              "encoding": "binary"
+            }
+          ]
+        },
+        {
+          "status": "403",
+          "contentType": "application/json",
+          "encoding": "json",
+          "contents": [
+            {
+              "contentType": "application/json",
+              "encoding": "json"
+            },
+            {
+              "contentType": "application/xml",
+              "encoding": "binary"
+            }
+          ]
+        },
+        {
+          "status": "404",
+          "contentType": "application/json",
+          "encoding": "json",
+          "contents": [
+            {
+              "contentType": "application/json",
+              "encoding": "json"
+            },
+            {
+              "contentType": "application/xml",
+              "encoding": "binary"
+            }
+          ]
+        }
+      ],
+      "responseLinks": [],
+      "transport": "http"
+    },
+    {
+      "resource": "planets",
+      "publicResource": "planets",
       "operation": "delete",
       "publicOperation": "delete",
       "deprecated": false,
@@ -1395,7 +1617,7 @@
       "publicCookieParams": [],
       "cookieParamDetails": [],
       "paramsModel": {
-        "publicName": "PizzaDeleteParams"
+        "publicName": "PlanetDeleteParams"
       },
       "result": {
         "successStatus": "204",
@@ -1424,8 +1646,8 @@
       "transport": "http"
     },
     {
-      "resource": "planets.pizzas",
-      "publicResource": "planets.pizzas",
+      "resource": "planets",
+      "publicResource": "planets",
       "operation": "uploadImage",
       "publicOperation": "uploadImage",
       "deprecated": false,
@@ -1467,7 +1689,7 @@
       "publicCookieParams": [],
       "cookieParamDetails": [],
       "paramsModel": {
-        "publicName": "PizzaUploadImageParams"
+        "publicName": "PlanetUploadImageParams"
       },
       "requestBody": {
         "contentType": "multipart/form-data",
