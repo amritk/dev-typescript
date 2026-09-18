@@ -26,18 +26,7 @@ import type { HTTPMethod, FinalizedRequestInit, MergedRequestInit, PromiseOrValu
 import { stringifyQuery } from './internal/utils/query';
 import { toFile } from './core/uploads';
 import { VERSION } from './version';
-import {
-  Planets,
-  type Planet,
-  type PaginatedResource,
-  type Satellite,
-  type PlanetListResponse,
-  type PlanetUploadImageResponse,
-  type PlanetListParams,
-  type PlanetCreateParams,
-  type PlanetUpdateParams,
-  type PlanetUploadImageParams,
-} from './resources/planets';
+import { Planets } from './resources/planets/planets';
 import {
   CelestialBodies,
   type CelestialBody,
@@ -82,11 +71,6 @@ export interface ClientOptions {
   apiKeyHeader?: string | AuthTokenProvider | null | undefined;
 
   /**
-   * API key query parameter
-   */
-  apiKeyQuery?: string | AuthTokenProvider | null | undefined;
-
-  /**
    * API key browser cookie
    */
   apiKeyCookie?: string | AuthTokenProvider | null | undefined;
@@ -100,6 +84,11 @@ export interface ClientOptions {
    * OpenID Connect Authentication
    */
   openIDConnect?: string | AuthTokenProvider | null | undefined;
+
+  /**
+   * API key query parameter
+   */
+  apiKeyQuery?: string | AuthTokenProvider | undefined;
 
   /**
    * Secret used to verify incoming webhook signatures.
@@ -185,20 +174,20 @@ export interface ClientOptions {
   logger?: Logger | undefined;
 }
 
-export type DemoAPIScalarGoolaxyOptions = ClientOptions;
+export type ApiTestOptions = ClientOptions;
 
 /**
- * API Client for interfacing with the DemoApiScalarGoolaxy API.
+ * API Client for interfacing with the TestIt API.
  */
-export class DemoAPIScalarGoolaxy {
+export class ApiTest {
   bearerAuth: string | AuthTokenProvider | null;
   basicAuthUsername: string | AuthTokenProvider | null;
   basicAuthPassword: string | AuthTokenProvider | null;
   apiKeyHeader: string | AuthTokenProvider | null;
-  apiKeyQuery: string | AuthTokenProvider | null;
   apiKeyCookie: string | AuthTokenProvider | null;
   oAuth2: string | AuthTokenProvider | null;
   openIDConnect: string | AuthTokenProvider | null;
+  apiKeyQuery: string | AuthTokenProvider | undefined;
   webhookSecret: string | null;
 
   baseURL: string;
@@ -215,16 +204,16 @@ export class DemoAPIScalarGoolaxy {
   private _options: ClientOptions;
 
   /**
-   * API Client for interfacing with the DemoApiScalarGoolaxy API.
+   * API Client for interfacing with the TestIt API.
    *
    * @param {string | AuthTokenProvider | null | undefined} [opts.bearerAuth=process.env["BEARER_AUTH"] ?? null]
    * @param {string | AuthTokenProvider | null | undefined} [opts.basicAuthUsername=process.env["BASIC_AUTH_USERNAME"] ?? null]
    * @param {string | AuthTokenProvider | null | undefined} [opts.basicAuthPassword=process.env["BASIC_AUTH_PASSWORD"] ?? null]
    * @param {string | AuthTokenProvider | null | undefined} [opts.apiKeyHeader=process.env["API_KEY_HEADER"] ?? null]
-   * @param {string | AuthTokenProvider | null | undefined} [opts.apiKeyQuery=process.env["API_KEY_QUERY"] ?? null]
    * @param {string | AuthTokenProvider | null | undefined} [opts.apiKeyCookie=process.env["API_KEY_COOKIE"] ?? null]
    * @param {string | AuthTokenProvider | null | undefined} [opts.oAuth2=process.env["O_AUTH2"] ?? null]
    * @param {string | AuthTokenProvider | null | undefined} [opts.openIDConnect=process.env["OPEN_ID_CONNECT"] ?? null]
+   * @param {string | AuthTokenProvider | undefined} [opts.apiKeyQuery=process.env["SCALAR_69_T4_L_API_KEY_QUERY"] ?? undefined]
    * @param {string | null | undefined} [opts.webhookSecret=process.env["SCALAR_69_T4_L_WEBHOOK_SECRET"] ?? null]
    * @param {Environment} [opts.environment=production] - Specifies the environment URL to use for the API.
    * @param {string} [opts.baseURL=process.env["SCALAR_69_T4_L_BASE_URL"] ?? https://galaxy.scalar.com] - Override the default base URL for the API.
@@ -241,10 +230,10 @@ export class DemoAPIScalarGoolaxy {
     basicAuthUsername = readEnv('BASIC_AUTH_USERNAME') ?? null,
     basicAuthPassword = readEnv('BASIC_AUTH_PASSWORD') ?? null,
     apiKeyHeader = readEnv('API_KEY_HEADER') ?? null,
-    apiKeyQuery = readEnv('API_KEY_QUERY') ?? null,
     apiKeyCookie = readEnv('API_KEY_COOKIE') ?? null,
     oAuth2 = readEnv('O_AUTH2') ?? null,
     openIDConnect = readEnv('OPEN_ID_CONNECT') ?? null,
+    apiKeyQuery = readEnv('SCALAR_69_T4_L_API_KEY_QUERY'),
     webhookSecret = readEnv('SCALAR_69_T4_L_WEBHOOK_SECRET') ?? null,
     ...opts
   }: ClientOptions = {}) {
@@ -253,10 +242,10 @@ export class DemoAPIScalarGoolaxy {
       basicAuthUsername,
       basicAuthPassword,
       apiKeyHeader,
-      apiKeyQuery,
       apiKeyCookie,
       oAuth2,
       openIDConnect,
+      apiKeyQuery,
       webhookSecret,
       ...opts,
       baseURL: baseURL || null,
@@ -264,12 +253,12 @@ export class DemoAPIScalarGoolaxy {
     const environment = options.environment ?? 'production';
     const baseURLOverridden = baseURL !== null && baseURL !== undefined && baseURL !== '';
     if (baseURLOverridden && options.environment)
-      throw new Errors.DemoAPIScalarGoolaxyError(
+      throw new Errors.ApiTestError(
         'Ambiguous URL; The `baseURL` option (or SCALAR_69_T4_L_BASE_URL env var) and the `environment` option are given. If you want to use the environment you must pass baseURL: null',
       );
     const defaultBaseURL = environments[environment];
     this.baseURL = options.baseURL || defaultBaseURL;
-    this.timeout = options.timeout ?? DemoAPIScalarGoolaxy.DEFAULT_TIMEOUT /* 1 minute */;
+    this.timeout = options.timeout ?? ApiTest.DEFAULT_TIMEOUT /* 1 minute */;
     this.logger = options.logger ?? console;
     const defaultLogLevel = 'warn';
     // Set default logLevel early so that we can log a warning in parseLogLevel.
@@ -303,10 +292,10 @@ export class DemoAPIScalarGoolaxy {
     this.basicAuthUsername = basicAuthUsername;
     this.basicAuthPassword = basicAuthPassword;
     this.apiKeyHeader = apiKeyHeader;
-    this.apiKeyQuery = apiKeyQuery;
     this.apiKeyCookie = apiKeyCookie;
     this.oAuth2 = oAuth2;
     this.openIDConnect = openIDConnect;
+    this.apiKeyQuery = apiKeyQuery;
     this.webhookSecret = webhookSecret;
   }
 
@@ -335,10 +324,10 @@ export class DemoAPIScalarGoolaxy {
       basicAuthUsername: this.basicAuthUsername,
       basicAuthPassword: this.basicAuthPassword,
       apiKeyHeader: this.apiKeyHeader,
-      apiKeyQuery: this.apiKeyQuery,
       apiKeyCookie: this.apiKeyCookie,
       oAuth2: this.oAuth2,
       openIDConnect: this.openIDConnect,
+      apiKeyQuery: this.apiKeyQuery,
       webhookSecret: this.webhookSecret,
       ...options,
       baseURL: nextBaseURL,
@@ -624,7 +613,8 @@ export class DemoAPIScalarGoolaxy {
   ): Promise<Response> {
     const { signal, method, ...options } = init || {};
     const abort = this._makeAbort(controller);
-    if (signal) signal.addEventListener('abort', abort, { once: true });
+    if (signal?.aborted) abort();
+    else if (signal) signal.addEventListener('abort', abort, { once: true });
 
     const timeout = setTimeout(abort, ms);
 
@@ -882,12 +872,12 @@ export class DemoAPIScalarGoolaxy {
     if (headerExplicitlyOmitted(options.headers, 'Authorization')) return;
     if (headers.has('X-API-Key')) return;
     if (headerExplicitlyOmitted(options.headers, 'X-API-Key')) return;
-    if (new URL(url).searchParams.has('api_key')) return;
     if (cookieHeaderHas(headers.get('Cookie'), 'api_key')) return;
+    if (new URL(url).searchParams.has('api_key')) return;
     throw new Errors.AuthenticationError(
       401,
       undefined,
-      'Could not resolve authentication method. Expected either bearerAuth, both basicAuthUsername and basicAuthPassword, oAuth2, openIDConnect, apiKeyHeader, apiKeyQuery or apiKeyCookie to be set. Or for one of the "Authorization" or "X-API-Key" headers to be explicitly omitted',
+      'Could not resolve authentication method. Expected either bearerAuth, both basicAuthUsername and basicAuthPassword, oAuth2, openIDConnect, apiKeyHeader, apiKeyCookie or apiKeyQuery to be set. Or for one of the "Authorization" or "X-API-Key" headers to be explicitly omitted',
       headers,
     );
   }
@@ -990,10 +980,7 @@ export class DemoAPIScalarGoolaxy {
   ): Promise<string | undefined> {
     if (value == null) return undefined;
     const token = typeof value === 'function' ? await value() : value;
-    if (!token)
-      throw new Errors.DemoAPIScalarGoolaxyError(
-        `Expected '${optionName}' to resolve to a non-empty string.`,
-      );
+    if (!token) throw new Errors.ApiTestError(`Expected '${optionName}' to resolve to a non-empty string.`);
     return token;
   }
 
@@ -1004,16 +991,14 @@ export class DemoAPIScalarGoolaxy {
     if (value == null) return undefined;
     const token = typeof value === 'function' ? value() : value;
     if (typeof token !== 'string' || !token)
-      throw new Errors.DemoAPIScalarGoolaxyError(
-        `Expected '${optionName}' to resolve to a non-empty string.`,
-      );
+      throw new Errors.ApiTestError(`Expected '${optionName}' to resolve to a non-empty string.`);
     return token;
   }
 
-  static DemoAPIScalarGoolaxy = this;
+  static ApiTest = this;
   static DEFAULT_TIMEOUT = 60000; // 1 minute
 
-  static DemoAPIScalarGoolaxyError = Errors.DemoAPIScalarGoolaxyError;
+  static ApiTestError = Errors.ApiTestError;
   static APIError = Errors.APIError;
   static APIConnectionError = Errors.APIConnectionError;
   static APIConnectionTimeoutError = Errors.APIConnectionTimeoutError;
@@ -1035,25 +1020,14 @@ export class DemoAPIScalarGoolaxy {
   webhooks: Webhooks = new Webhooks(this);
 }
 
-DemoAPIScalarGoolaxy.Planets = Planets;
-DemoAPIScalarGoolaxy.CelestialBodies = CelestialBodies;
-DemoAPIScalarGoolaxy.Authentication = Authentication;
-DemoAPIScalarGoolaxy.Webhooks = Webhooks;
+ApiTest.Planets = Planets;
+ApiTest.CelestialBodies = CelestialBodies;
+ApiTest.Authentication = Authentication;
+ApiTest.Webhooks = Webhooks;
 
-export declare namespace DemoAPIScalarGoolaxy {
+export declare namespace ApiTest {
   export type RequestOptions = Opts.RequestOptions;
-  export {
-    Planets as Planets,
-    type Planet as Planet,
-    type PaginatedResource as PaginatedResource,
-    type Satellite as Satellite,
-    type PlanetListResponse as PlanetListResponse,
-    type PlanetUploadImageResponse as PlanetUploadImageResponse,
-    type PlanetListParams as PlanetListParams,
-    type PlanetCreateParams as PlanetCreateParams,
-    type PlanetUpdateParams as PlanetUpdateParams,
-    type PlanetUploadImageParams as PlanetUploadImageParams,
-  };
+  export { Planets as Planets };
 
   export {
     CelestialBodies as CelestialBodies,
