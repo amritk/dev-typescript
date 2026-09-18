@@ -1,16 +1,16 @@
-# Test it TypeScript API
+# Scalar Galaxy TypeScript API
 
 Complete reference of every operation, grouped by resource. See [the README](./README.md) for usage and configuration.
 
 ## Contents
 
 - [`Planets`](#planets)
-  - [`Planets Pizzas`](#planets-pizzas)
-    - [Get all planets](#get-all-planets)
-    - [Create a planet](#create-a-planet)
-    - [Get a planet](#get-a-planet)
-    - [Delete a planet](#delete-a-planet)
-    - [Upload an image to a planet](#upload-an-image-to-a-planet)
+  - [Get all planets](#get-all-planets)
+  - [Create a planet](#create-a-planet)
+  - [Get a planet](#get-a-planet)
+  - [Update a planet](#update-a-planet)
+  - [Delete a planet](#delete-a-planet)
+  - [Upload an image to a planet](#upload-an-image-to-a-planet)
 - [`CelestialBodies`](#celestialbodies)
   - [Create a celestial body](#create-a-celestial-body)
 - [`Authentication`](#authentication)
@@ -21,9 +21,9 @@ Complete reference of every operation, grouped by resource. See [the README](./R
 ## Setup
 
 ```ts
-import ApiTest from '@amritk/galaxy-dev-ts';
+import ScalarGalaxy from '@amritk/galaxy-dev-ts';
 
-const client = new ApiTest({
+const client = new ScalarGalaxy({
   bearerAuth: process.env['BEARER_AUTH'], // defaults to the BEARER_AUTH env var
   environment: 'production',
 });
@@ -31,73 +31,87 @@ const client = new ApiTest({
 
 ## `Planets`
 
-### `Planets Pizzas`
-
 Everything about planets
 
-#### Get all planets
+### Get all planets
 
 It's easy to say you know them all, but do you really? Retrieve all the planets and check whether you missed one.
 
 | Direction | Type |
 | --- | --- |
-| Request | [`PizzaListParams`](./src/resources/planets/pizzas.ts) |
-| Response | [`PizzaListResponse`](./src/resources/planets/pizzas.ts) |
+| Request | [`PlanetListParams`](./src/resources/planets.ts) |
+| Response | [`PlanetListResponse`](./src/resources/planets.ts) |
 
 ```ts
-const pizza = await client.planets.pizzas.list({
+const planet = await client.planets.list({
   limit: 10,
   offset: 0,
 });
 ```
 
-#### Create a planet
+### Create a planet
 
 Time to play god and create a new planet. What do you think? Ah, don't think too much. What could go wrong anyway?
 
 | Direction | Type |
 | --- | --- |
-| Request | [`PizzaCreateParams`](./src/resources/planets/pizzas.ts) |
-| Response | [`Planet`](./src/resources/planets/pizzas.ts) |
+| Request | [`PlanetCreateParams`](./src/resources/planets.ts) |
+| Response | [`Planet`](./src/resources/planets.ts) |
 
 ```ts
-const planet = await client.planets.pizzas.create({
+const planet = await client.planets.create({
   name: 'Mars',
   type: 'terrestrial',
 });
 ```
 
-#### Get a planet
+### Get a planet
 
 You'll better learn a little bit more about the planets. It might come in handy once space travel is available for everyone.
 
 | Direction | Type |
 | --- | --- |
-| Response | [`Planet`](./src/resources/planets/pizzas.ts) |
+| Response | [`Planet`](./src/resources/planets.ts) |
 
 ```ts
-const planet = await client.planets.pizzas.retrieve(1);
+const planet = await client.planets.retrieve(1);
 ```
 
-#### Delete a planet
+### Update a planet
+
+Sometimes you make mistakes, that's fine. No worries, you can update all planets.
+
+| Direction | Type |
+| --- | --- |
+| Request | [`PlanetUpdateParams`](./src/resources/planets.ts) |
+| Response | [`Planet`](./src/resources/planets.ts) |
+
+```ts
+const planet = await client.planets.update(1, {
+  name: 'Mars',
+  type: 'terrestrial',
+});
+```
+
+### Delete a planet
 
 This endpoint was used to delete planets. Unfortunately, that caused a lot of trouble for planets with life. So, this endpoint is now deprecated and should not be used anymore.
 
 ```ts
-await client.planets.pizzas.delete(1);
+await client.planets.delete(1);
 ```
 
-#### Upload an image to a planet
+### Upload an image to a planet
 
 Got a crazy good photo of a planet? Share it with the world!
 
 | Direction | Type |
 | --- | --- |
-| Request | [`PizzaUploadImageParams`](./src/resources/planets/pizzas.ts) |
-| Response | [`PizzaUploadImageResponse`](./src/resources/planets/pizzas.ts) |
+| Request | [`PlanetUploadImageParams`](./src/resources/planets.ts) |
+| Response | [`PlanetUploadImageResponse`](./src/resources/planets.ts) |
 
 ```ts
-const pizza = await client.planets.pizzas.uploadImage(1);
+const planet = await client.planets.uploadImage(1);
 ```
 
 ## `CelestialBodies`

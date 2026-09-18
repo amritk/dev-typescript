@@ -13,10 +13,10 @@ import { writeFileSync } from 'node:fs';
 
 // The package exports the client class. The client reads auth and the base URL from the
 // environment, so it needs no constructor options to point at a server.
-import ApiTest from '@amritk/galaxy-dev-ts';
+import ScalarGalaxy from '@amritk/galaxy-dev-ts';
 
 // One shared client runs every case.
-const client = new ApiTest();
+const client = new ScalarGalaxy();
 
 // The result of running one case, collected for the JSON report or the printed table.
 type SmokeResult = {
@@ -46,7 +46,7 @@ const cases: {
     method: 'GET',
     path: '/planets',
     run: async () => {
-      const pizza = await client.planets.pizzas.list({
+      const planet = await client.planets.list({
         limit: 10,
         offset: 0,
       });
@@ -59,7 +59,7 @@ const cases: {
     path: '/planets',
     label: 'required params',
     run: async () => {
-      const planet = await client.planets.pizzas.create({
+      const planet = await client.planets.create({
         name: 'Mars',
         type: 'terrestrial',
       });
@@ -72,7 +72,7 @@ const cases: {
     path: '/planets',
     label: 'all params',
     run: async () => {
-      const planet = await client.planets.pizzas.create({
+      const planet = await client.planets.create({
         name: 'Mars',
         description: 'The red planet',
         type: 'terrestrial',
@@ -100,7 +100,49 @@ const cases: {
     method: 'GET',
     path: '/planets/{planetId}',
     run: async () => {
-      const planet = await client.planets.pizzas.retrieve(1);
+      const planet = await client.planets.retrieve(1);
+    },
+  },
+
+  {
+    operation: 'update',
+    method: 'PUT',
+    path: '/planets/{planetId}',
+    label: 'required params',
+    run: async () => {
+      const planet = await client.planets.update(1, {
+        name: 'Mars',
+        type: 'terrestrial',
+      });
+    },
+  },
+
+  {
+    operation: 'update',
+    method: 'PUT',
+    path: '/planets/{planetId}',
+    label: 'all params',
+    run: async () => {
+      const planet = await client.planets.update(1, {
+        name: 'Mars',
+        description: 'The red planet',
+        type: 'terrestrial',
+        habitabilityIndex: 0.68,
+        physicalProperties: {},
+        atmosphere: [{}],
+        discoveredAt: '1610-01-07T00:00:00Z',
+        image: 'https://cdn.scalar.com/photos/mars.jpg',
+        satellites: [
+          {
+            name: 'Phobos',
+            type: 'moon',
+          },
+        ],
+        creator: {},
+        tags: ['solar-system', 'rocky', 'explored'],
+        successCallbackUrl: 'https://example.com/webhook',
+        failureCallbackUrl: 'https://example.com/webhook',
+      });
     },
   },
 
@@ -109,7 +151,7 @@ const cases: {
     method: 'DELETE',
     path: '/planets/{planetId}',
     run: async () => {
-      await client.planets.pizzas.delete(1);
+      await client.planets.delete(1);
     },
   },
 
@@ -119,7 +161,7 @@ const cases: {
     path: '/planets/{planetId}/image',
     label: 'required params',
     run: async () => {
-      const pizza = await client.planets.pizzas.uploadImage(1);
+      const planet = await client.planets.uploadImage(1);
     },
   },
 
@@ -129,7 +171,7 @@ const cases: {
     path: '/planets/{planetId}/image',
     label: 'all params',
     run: async () => {
-      const pizza = await client.planets.pizzas.uploadImage(1, {
+      const planet = await client.planets.uploadImage(1, {
         image: new File(['@mars.jpg'], '@mars.jpg'),
       });
     },
