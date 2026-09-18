@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.4.0](https://github.com/amritk/dev-typescript/compare/v0.3.1...v0.4.0) (2026-09-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** 6 breaking changes to the SDK surface.
+    - Renamed SDK from `TestIt` to `ScalarGalaxy`.
+    - Removed operation `planets.pizzas.list` (`GET /planets`).
+    - Removed operation `planets.pizzas.create` (`POST /planets`).
+    - Removed operation `planets.pizzas.retrieve` (`GET /planets/{planetId}`).
+    - Removed operation `planets.pizzas.delete` (`DELETE /planets/{planetId}`).
+    - Removed operation `planets.pizzas.uploadImage` (`POST /planets/{planetId}/image`).
+
+### Features
+
+* **api:** update SDK name (+11 more changes) ([3b41878](https://github.com/amritk/dev-typescript/commit/3b41878a516d96acffa2c5a461522ea7a6ecc4d2))
+
+
+### Chores
+
+* **api:** update generated SDK content ([0ca90a1](https://github.com/amritk/dev-typescript/commit/0ca90a13b6375858b81efbf49e5bc74771a82bdd))
+
 ## [0.3.1](https://github.com/amritk/dev-typescript/compare/v0.3.0...v0.3.1) (2026-09-18)
 
 
