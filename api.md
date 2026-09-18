@@ -21,7 +21,7 @@ Complete reference of every operation, grouped by resource. See [the README](./R
 ## Setup
 
 ```ts
-import ApiTest from '@scalar-69t4l/demo-api-scalar-galaxy';
+import ApiTest from '@amritk/galaxy-dev-ts';
 
 const client = new ApiTest({
   bearerAuth: process.env['BEARER_AUTH'], // defaults to the BEARER_AUTH env var
