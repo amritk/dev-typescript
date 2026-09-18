@@ -1,5 +1,30 @@
 # Changelog
 
+## [0.3.0](https://github.com/amritk/dev-typescript/compare/v0.2.1...v0.3.0) (2026-09-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** 7 breaking changes to the SDK surface.
+    - Renamed SDK from `DemoApiScalarGoolaxy` to `TestIt`.
+    - Removed operation `planets.list` (`GET /planets`).
+    - Removed operation `planets.create` (`POST /planets`).
+    - Removed operation `planets.retrieve` (`GET /planets/{planetId}`).
+    - Removed operation `planets.update` (`PUT /planets/{planetId}`).
+    - Removed operation `planets.delete` (`DELETE /planets/{planetId}`).
+    - Removed operation `planets.uploadImage` (`POST /planets/{planetId}/image`).
+* **api:** Renamed SDK from `ScalarGalaxy` to `DemoApiScalarGoolaxy`.
+
+### Features
+
+* **api:** update SDK name (+1 more change) ([8b890f4](https://github.com/amritk/dev-typescript/commit/8b890f4c604f7befd974b575f0fda91270186a91))
+* **api:** update SDK name (+12 more changes) ([6fda27d](https://github.com/amritk/dev-typescript/commit/6fda27d2dc57f3fe97002b0752355db6f6534872))
+
+
+### Chores
+
+* **api:** update generated SDK content ([cbd5635](https://github.com/amritk/dev-typescript/commit/cbd56352749a69c917f8b7a9905de4cdb3e451cd))
+
 ## [0.2.1](https://github.com/amritk/dev-typescript/compare/v0.2.0...v0.2.1) (2026-09-11)
 
 

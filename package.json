@@ -1,8 +1,8 @@
 {
-  "name": "@amritk/galaxy-dev-ts",
-  "version": "0.2.1",
+  "name": "@scalar-69t4l/demo-api-scalar-galaxy",
+  "version": "0.3.0",
   "description": "The Scalar Galaxy is an example OpenAPI document to test OpenAPI tools and libraries. It's a fictional universe with fictional planets and fictional data. Get all the data for all planets.",
-  "author": "Scalar Galaxy",
+  "author": "Test it",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/amritk/dev-typescript.git"

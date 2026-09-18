@@ -1,6 +1,6 @@
-# Scalar Galaxy
+# Test it
 
-This library provides convenient access to the Scalar Galaxy REST API from TypeScript or JavaScript.
+This library provides convenient access to the Test it REST API from TypeScript or JavaScript.
 
 The full API of this library can be found in [api.md](./api.md).
 
@@ -25,7 +25,7 @@ The full API of this library can be found in [api.md](./api.md).
 ## Installation
 
 ```sh
-npm install @amritk/galaxy-dev-ts
+npm install @scalar-69t4l/demo-api-scalar-galaxy
 ```
 
 <br />
@@ -33,19 +33,19 @@ npm install @amritk/galaxy-dev-ts
 ## Usage
 
 ```ts
-import ScalarGalaxy from '@amritk/galaxy-dev-ts';
+import ApiTest from '@scalar-69t4l/demo-api-scalar-galaxy';
 
-const client = new ScalarGalaxy({
+const client = new ApiTest({
   bearerAuth: process.env['BEARER_AUTH'], // defaults to the BEARER_AUTH env var
   environment: 'production',
 });
 
-const planet = await client.planets.list({
+const pizza = await client.planets.pizzas.list({
   limit: 10,
   offset: 0,
 });
 
-console.log(planet);
+console.log(pizza);
 ```
 
 The examples in the following sections assume a `client` configured as shown above.
@@ -64,10 +64,10 @@ Pass credentials to the generated client constructor. Environment variables are 
 | `basicAuthUsername` | `string \| provider` | - | Basic HTTP authentication Defaults to BASIC_AUTH_USERNAME. |
 | `basicAuthPassword` | `string \| provider` | - | Basic HTTP authentication Defaults to BASIC_AUTH_PASSWORD. |
 | `apiKeyHeader` | `string \| provider` | - | API key request header Defaults to API_KEY_HEADER. |
-| `apiKeyQuery` | `string \| provider` | - | API key query parameter Defaults to API_KEY_QUERY. |
 | `apiKeyCookie` | `string \| provider` | - | API key browser cookie Defaults to API_KEY_COOKIE. |
 | `oAuth2` | `string \| provider` | - | OAuth 2.0 authentication Defaults to O_AUTH2. |
 | `openIDConnect` | `string \| provider` | - | OpenID Connect Authentication Defaults to OPEN_ID_CONNECT. |
+| `apiKeyQuery` | `string \| provider` | - | API key query parameter Defaults to SCALAR_69_T4_L_API_KEY_QUERY. |
 
 Declared schemes:
 
@@ -86,10 +86,10 @@ Declared schemes:
 Non-success responses throw generated API errors. Error objects expose status, headers, response body, and request metadata where the target runtime supports it.
 
 ```ts
-import { APIError } from '@amritk/galaxy-dev-ts';
+import { APIError } from '@scalar-69t4l/demo-api-scalar-galaxy';
 
 try {
-  const planet = await client.planets.list({
+  const pizza = await client.planets.pizzas.list({
     limit: 10,
     offset: 0,
   });
@@ -110,9 +110,9 @@ Documented error statuses: `400`, `401`, `403`, `404`, `409`, `422`.
 Configure the generated client by setting any of these options when you create it.
 
 ```ts
-import ScalarGalaxy from '@amritk/galaxy-dev-ts';
+import ApiTest from '@scalar-69t4l/demo-api-scalar-galaxy';
 
-const client = new ScalarGalaxy({
+const client = new ApiTest({
   timeout: 60000,
   maxRetries: 2,
   logLevel: 'debug',
@@ -125,19 +125,19 @@ const client = new ScalarGalaxy({
 | `basicAuthUsername` | `string \| AuthTokenProvider` | `process.env["BASIC_AUTH_USERNAME"]` | Basic HTTP authentication |
 | `basicAuthPassword` | `string \| AuthTokenProvider` | `process.env["BASIC_AUTH_PASSWORD"]` | Basic HTTP authentication |
 | `apiKeyHeader` | `string \| AuthTokenProvider` | `process.env["API_KEY_HEADER"]` | API key request header |
-| `apiKeyQuery` | `string \| AuthTokenProvider` | `process.env["API_KEY_QUERY"]` | API key query parameter |
 | `apiKeyCookie` | `string \| AuthTokenProvider` | `process.env["API_KEY_COOKIE"]` | API key browser cookie |
 | `oAuth2` | `string \| AuthTokenProvider` | `process.env["O_AUTH2"]` | OAuth 2.0 authentication |
 | `openIDConnect` | `string \| AuthTokenProvider` | `process.env["OPEN_ID_CONNECT"]` | OpenID Connect Authentication |
+| `apiKeyQuery` | `string \| AuthTokenProvider` | `process.env["SCALAR_69_T4_L_API_KEY_QUERY"]` | API key query parameter |
 | `environment` | `Environment` | - | Select one of the configured API environments. |
-| `baseURL` | `string \| null` | `process.env["SCALAR_BW0_GP_BASE_URL"]` | Override the default API base URL. Pass `null` when selecting a configured environment. |
+| `baseURL` | `string \| null` | `process.env["SCALAR_69_T4_L_BASE_URL"]` | Override the default API base URL. Pass `null` when selecting a configured environment. |
 | `timeout` | `number` | `60000` | Maximum time in milliseconds to wait for a response before aborting a request. |
 | `maxRetries` | `number` | `2` | Number of retries for temporary failures. |
 | `defaultHeaders` | `HeadersInit` | - | Headers sent with every request. |
 | `defaultQuery` | `Record<string, string \| undefined>` | - | Query parameters sent with every request. |
 | `fetchOptions` | `RequestInit` | - | Additional fetch options sent with every request. |
 | `fetch` | `Fetch` | - | Custom fetch implementation. |
-| `logLevel` | `"off" \| "error" \| "warn" \| "info" \| "debug" \| null` | `process.env["SCALAR_BW0_GP_LOG"]` | Controls request and retry debug logging. |
+| `logLevel` | `"off" \| "error" \| "warn" \| "info" \| "debug" \| null` | `process.env["SCALAR_69_T4_L_LOG"]` | Controls request and retry debug logging. |
 | `logger` | `Logger \| null` | `console` | Custom logger implementation. |
 
 <br />

@@ -1,11 +1,11 @@
 // File generated from our OpenAPI spec by Scalar. See README.md for details.
 
-import type { ScalarGalaxy } from './client';
+import type { ApiTest } from './client';
 
 export abstract class APIResource {
-  protected _client: ScalarGalaxy;
+  protected _client: ApiTest;
 
-  constructor(client: ScalarGalaxy) {
+  constructor(client: ApiTest) {
     this._client = client;
   }
 }
