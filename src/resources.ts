@@ -2,6 +2,15 @@
 
 export { Planets, CelestialBodies, Authentication, Webhooks } from './resources/index';
 export type {
+  Planet,
+  PaginatedResource,
+  Satellite,
+  PlanetListParams,
+  PlanetListResponse,
+  PlanetCreateParams,
+  PlanetUpdateParams,
+  PlanetUploadImageParams,
+  PlanetUploadImageResponse,
   CelestialBody,
   CelestialBodyCreateParams,
   User,
