@@ -1,11 +1,11 @@
 // File generated from our OpenAPI spec by Scalar. See README.md for details.
 
-import type { DemoAPIScalarGoolaxy } from './client';
+import type { ApiTest } from './client';
 
 export abstract class APIResource {
-  protected _client: DemoAPIScalarGoolaxy;
+  protected _client: ApiTest;
 
-  constructor(client: DemoAPIScalarGoolaxy) {
+  constructor(client: ApiTest) {
     this._client = client;
   }
 }

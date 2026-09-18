@@ -1,24 +1,24 @@
 ---
-name: demo-api-scalar-goolaxy-typescript-sdk
-description: "TypeScript SDK for Demo API (Scalar Goolaxy). Use when writing TypeScript code that calls Demo API (Scalar Goolaxy) with the @scalar-69t4l/demo-api-scalar-goolaxy package: installing it, constructing and authenticating the client, and calling API operations."
+name: test-it-typescript-sdk
+description: "TypeScript SDK for Test it API. Use when writing TypeScript code that calls Test it API with the @scalar-69t4l/demo-api-scalar-galaxy package: installing it, constructing and authenticating the client, and calling API operations."
 ---
 
-# Demo API (Scalar Goolaxy) TypeScript SDK
+# Test it TypeScript SDK
 
-Generated TypeScript client for Demo API (Scalar Goolaxy), published as `@scalar-69t4l/demo-api-scalar-goolaxy`. Use the generated client instead of hand-writing HTTP requests.
+Generated TypeScript client for Test it API, published as `@scalar-69t4l/demo-api-scalar-galaxy`. Use the generated client instead of hand-writing HTTP requests.
 
 ## Install
 
 ```sh
-npm install @scalar-69t4l/demo-api-scalar-goolaxy
+npm install @scalar-69t4l/demo-api-scalar-galaxy
 ```
 
 ## Client setup and authentication
 
 ```ts
-import DemoAPIScalarGoolaxy from '@scalar-69t4l/demo-api-scalar-goolaxy';
+import ApiTest from '@scalar-69t4l/demo-api-scalar-galaxy';
 
-const client = new DemoAPIScalarGoolaxy({
+const client = new ApiTest({
   bearerAuth: process.env['BEARER_AUTH'], // defaults to the BEARER_AUTH env var
   environment: 'production',
 });
@@ -30,27 +30,27 @@ Provide credentials using the options below. Environment variables are read auto
 - `basicAuthUsername` (env: `BASIC_AUTH_USERNAME`) — Basic HTTP authentication
 - `basicAuthPassword` (env: `BASIC_AUTH_PASSWORD`) — Basic HTTP authentication
 - `apiKeyHeader` (env: `API_KEY_HEADER`) — API key request header
-- `apiKeyQuery` (env: `API_KEY_QUERY`) — API key query parameter
 - `apiKeyCookie` (env: `API_KEY_COOKIE`) — API key browser cookie
 - `oAuth2` (env: `O_AUTH2`) — OAuth 2.0 authentication
 - `openIDConnect` (env: `OPEN_ID_CONNECT`) — OpenID Connect Authentication
+- `apiKeyQuery` (env: `SCALAR_69_T4_L_API_KEY_QUERY`) — API key query parameter
 
 ## Calling operations
 
 ```ts
-import DemoAPIScalarGoolaxy from '@scalar-69t4l/demo-api-scalar-goolaxy';
+import ApiTest from '@scalar-69t4l/demo-api-scalar-galaxy';
 
-const client = new DemoAPIScalarGoolaxy({
+const client = new ApiTest({
   bearerAuth: process.env['BEARER_AUTH'], // defaults to the BEARER_AUTH env var
   environment: 'production',
 });
 
-const planet = await client.planets.list({
+const pizza = await client.planets.pizzas.list({
   limit: 10,
   offset: 0,
 });
 
-console.log(planet);
+console.log(pizza);
 ```
 
 Method names, parameter shapes, and response types are generated from the API description — do not guess them. Look up the exact call signature in [api.md](./api.md) before writing a call.
@@ -60,10 +60,10 @@ Method names, parameter shapes, and response types are generated from the API de
 Non-success responses throw generated API errors. Error objects expose status, headers, response body, and request metadata where the target runtime supports it.
 
 ```ts
-import { APIError } from '@scalar-69t4l/demo-api-scalar-goolaxy';
+import { APIError } from '@scalar-69t4l/demo-api-scalar-galaxy';
 
 try {
-  const planet = await client.planets.list({
+  const pizza = await client.planets.pizzas.list({
     limit: 10,
     offset: 0,
   });
