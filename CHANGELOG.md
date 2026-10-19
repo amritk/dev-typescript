@@ -1,5 +1,56 @@
 # Changelog
 
+## [0.5.0](https://github.com/amritk/dev-typescript/compare/v0.5.0...v0.5.0) (2026-10-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** 6 breaking changes to the SDK surface.
+    - Renamed SDK from `TestIt` to `ScalarGalaxy`.
+    - Removed operation `planets.pizzas.list` (`GET /planets`).
+    - Removed operation `planets.pizzas.create` (`POST /planets`).
+    - Removed operation `planets.pizzas.retrieve` (`GET /planets/{planetId}`).
+    - Removed operation `planets.pizzas.delete` (`DELETE /planets/{planetId}`).
+    - Removed operation `planets.pizzas.uploadImage` (`POST /planets/{planetId}/image`).
+* **api:** 7 breaking changes to the SDK surface.
+    - Renamed SDK from `DemoApiScalarGoolaxy` to `TestIt`.
+    - Removed operation `planets.list` (`GET /planets`).
+    - Removed operation `planets.create` (`POST /planets`).
+    - Removed operation `planets.retrieve` (`GET /planets/{planetId}`).
+    - Removed operation `planets.update` (`PUT /planets/{planetId}`).
+    - Removed operation `planets.delete` (`DELETE /planets/{planetId}`).
+    - Removed operation `planets.uploadImage` (`POST /planets/{planetId}/image`).
+* **api:** Renamed SDK from `ScalarGalaxy` to `DemoApiScalarGoolaxy`.
+* **api:** Renamed SDK from `DemoApiScalarGalaxy` to `ScalarGalaxy`.
+* **api:** 3 breaking changes to the SDK surface.
+    - Property `planet.habitabilityIndex` type changed from `number<float>` to `number<float>`.
+    - Property `planet.physicalProperties` type changed from `object` to `object`.
+    - Property `planet.atmosphere` type changed from `Array<object>` to `Array<object>`.
+
+### Features
+
+* **api:** initial SDK generation ([7ee7a18](https://github.com/amritk/dev-typescript/commit/7ee7a1857f01da3d4f7f5a4e58825d7020f53b1e))
+* **api:** update property planet.habitabilityIndex (+3 more changes) ([38154e5](https://github.com/amritk/dev-typescript/commit/38154e58c82c155d27163212ade11049f9e4b45d))
+* **api:** update SDK name (+1 more change) ([8b890f4](https://github.com/amritk/dev-typescript/commit/8b890f4c604f7befd974b575f0fda91270186a91))
+* **api:** update SDK name (+1 more change) ([7cd8d55](https://github.com/amritk/dev-typescript/commit/7cd8d55075295fabb2e01cc37760392cf9648a07))
+* **api:** update SDK name (+11 more changes) ([3b41878](https://github.com/amritk/dev-typescript/commit/3b41878a516d96acffa2c5a461522ea7a6ecc4d2))
+* **api:** update SDK name (+12 more changes) ([6fda27d](https://github.com/amritk/dev-typescript/commit/6fda27d2dc57f3fe97002b0752355db6f6534872))
+
+
+### Chores
+
+* **api:** regenerate SDK ([db7f6e4](https://github.com/amritk/dev-typescript/commit/db7f6e42786aa8d11cd4cbdc4b2a86bc22acf8b7))
+* **api:** update generated SDK content ([0ca90a1](https://github.com/amritk/dev-typescript/commit/0ca90a13b6375858b81efbf49e5bc74771a82bdd))
+* **api:** update generated SDK content ([3eeadf6](https://github.com/amritk/dev-typescript/commit/3eeadf68f6c42c221e9f14c4a24036d176158cbb))
+* **api:** update generated SDK content ([cbd5635](https://github.com/amritk/dev-typescript/commit/cbd56352749a69c917f8b7a9905de4cdb3e451cd))
+* **api:** update generated SDK content ([b069477](https://github.com/amritk/dev-typescript/commit/b0694771f6e247a738f2ea0709a590c28d4a11a4))
+* **api:** update generated SDK content ([8e181d7](https://github.com/amritk/dev-typescript/commit/8e181d7007ad0b793e0da5aeb4d918dcdd887013))
+* release 0.4.4 ([179664b](https://github.com/amritk/dev-typescript/commit/179664b59dfdb54f0bbb927df574ce3e252597ef))
+* release 0.4.5 ([4d079cd](https://github.com/amritk/dev-typescript/commit/4d079cded83935edbc68c58f4cef9d9605c33456))
+* release 0.4.5 ([c66e54b](https://github.com/amritk/dev-typescript/commit/c66e54b4f0f9f735ed19446d216b5d612205b622))
+* release 0.5.0 ([4aefebb](https://github.com/amritk/dev-typescript/commit/4aefebb2157e305b209f27dcc38c649226cb49e0))
+* release 0.5.0 ([3bc5ea7](https://github.com/amritk/dev-typescript/commit/3bc5ea73ba3dec28eb2a3b4545b558fd5886e8b4))
+
 ## [0.5.0](https://github.com/amritk/dev-typescript/compare/v0.3.1...v0.5.0) (2026-10-19)
 
 
