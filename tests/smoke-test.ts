@@ -16,7 +16,7 @@ import { writeFileSync } from 'node:fs';
 import ScalarGalaxy from '@amritk/galaxy-dev-ts';
 
 // One shared client runs every case.
-const client = new ScalarGalaxy();
+const client = new ScalarGalaxy({ maxRetries: 2, timeout: 10_000 });
 
 // The result of running one case, collected for the JSON report or the printed table.
 type SmokeResult = {
