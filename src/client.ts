@@ -15,6 +15,7 @@ import {
   formatRequestDetails,
   loggerFor,
   parseLogLevel,
+  redactUrl,
   type LogLevel,
   type Logger,
 } from './internal/utils/log';
@@ -26,7 +27,18 @@ import type { HTTPMethod, FinalizedRequestInit, MergedRequestInit, PromiseOrValu
 import { stringifyQuery } from './internal/utils/query';
 import { toFile } from './core/uploads';
 import { VERSION } from './version';
-import { Planets } from './resources/planets/planets';
+import {
+  Planets,
+  type Planet,
+  type PaginatedResource,
+  type Satellite,
+  type PlanetListResponse,
+  type PlanetUploadImageResponse,
+  type PlanetListParams,
+  type PlanetCreateParams,
+  type PlanetUpdateParams,
+  type PlanetUploadImageParams,
+} from './resources/planets';
 import {
   CelestialBodies,
   type CelestialBody,
@@ -71,6 +83,11 @@ export interface ClientOptions {
   apiKeyHeader?: string | AuthTokenProvider | null | undefined;
 
   /**
+   * API key query parameter
+   */
+  apiKeyQuery?: string | AuthTokenProvider | null | undefined;
+
+  /**
    * API key browser cookie
    */
   apiKeyCookie?: string | AuthTokenProvider | null | undefined;
@@ -84,11 +101,6 @@ export interface ClientOptions {
    * OpenID Connect Authentication
    */
   openIDConnect?: string | AuthTokenProvider | null | undefined;
-
-  /**
-   * API key query parameter
-   */
-  apiKeyQuery?: string | AuthTokenProvider | undefined;
 
   /**
    * Secret used to verify incoming webhook signatures.
@@ -107,7 +119,7 @@ export interface ClientOptions {
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
    *
-   * Defaults to process.env["SCALAR_69_T4_L_BASE_URL"].
+   * Defaults to process.env["SCALAR_BW0_GP_BASE_URL"].
    */
   baseURL?: string | null | undefined;
 
@@ -162,7 +174,7 @@ export interface ClientOptions {
   /**
    * Set the log level.
    *
-   * Defaults to process.env["SCALAR_69_T4_L_LOG"] or 'warn' if it isn't set.
+   * Defaults to process.env["SCALAR_BW0_GP_LOG"] or 'warn' if it isn't set.
    */
   logLevel?: LogLevel | undefined;
 
@@ -174,20 +186,20 @@ export interface ClientOptions {
   logger?: Logger | undefined;
 }
 
-export type ApiTestOptions = ClientOptions;
+export type ScalarGalaxyOptions = ClientOptions;
 
 /**
- * API Client for interfacing with the TestIt API.
+ * API Client for interfacing with the ScalarGalaxy API.
  */
-export class ApiTest {
+export class ScalarGalaxy {
   bearerAuth: string | AuthTokenProvider | null;
   basicAuthUsername: string | AuthTokenProvider | null;
   basicAuthPassword: string | AuthTokenProvider | null;
   apiKeyHeader: string | AuthTokenProvider | null;
+  apiKeyQuery: string | AuthTokenProvider | null;
   apiKeyCookie: string | AuthTokenProvider | null;
   oAuth2: string | AuthTokenProvider | null;
   openIDConnect: string | AuthTokenProvider | null;
-  apiKeyQuery: string | AuthTokenProvider | undefined;
   webhookSecret: string | null;
 
   baseURL: string;
@@ -204,19 +216,19 @@ export class ApiTest {
   private _options: ClientOptions;
 
   /**
-   * API Client for interfacing with the TestIt API.
+   * API Client for interfacing with the ScalarGalaxy API.
    *
    * @param {string | AuthTokenProvider | null | undefined} [opts.bearerAuth=process.env["BEARER_AUTH"] ?? null]
    * @param {string | AuthTokenProvider | null | undefined} [opts.basicAuthUsername=process.env["BASIC_AUTH_USERNAME"] ?? null]
    * @param {string | AuthTokenProvider | null | undefined} [opts.basicAuthPassword=process.env["BASIC_AUTH_PASSWORD"] ?? null]
    * @param {string | AuthTokenProvider | null | undefined} [opts.apiKeyHeader=process.env["API_KEY_HEADER"] ?? null]
+   * @param {string | AuthTokenProvider | null | undefined} [opts.apiKeyQuery=process.env["API_KEY_QUERY"] ?? null]
    * @param {string | AuthTokenProvider | null | undefined} [opts.apiKeyCookie=process.env["API_KEY_COOKIE"] ?? null]
    * @param {string | AuthTokenProvider | null | undefined} [opts.oAuth2=process.env["O_AUTH2"] ?? null]
    * @param {string | AuthTokenProvider | null | undefined} [opts.openIDConnect=process.env["OPEN_ID_CONNECT"] ?? null]
-   * @param {string | AuthTokenProvider | undefined} [opts.apiKeyQuery=process.env["SCALAR_69_T4_L_API_KEY_QUERY"] ?? undefined]
-   * @param {string | null | undefined} [opts.webhookSecret=process.env["SCALAR_69_T4_L_WEBHOOK_SECRET"] ?? null]
+   * @param {string | null | undefined} [opts.webhookSecret=process.env["SCALAR_BW0_GP_WEBHOOK_SECRET"] ?? null]
    * @param {Environment} [opts.environment=production] - Specifies the environment URL to use for the API.
-   * @param {string} [opts.baseURL=process.env["SCALAR_69_T4_L_BASE_URL"] ?? https://galaxy.scalar.com] - Override the default base URL for the API.
+   * @param {string} [opts.baseURL=process.env["SCALAR_BW0_GP_BASE_URL"] ?? https://galaxy.scalar.com] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
    * @param {Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -225,16 +237,16 @@ export class ApiTest {
    * @param {Record<string, string | undefined>} opts.defaultQuery - Default query parameters to include with every request to the API.
    */
   constructor({
-    baseURL = readEnv('SCALAR_69_T4_L_BASE_URL'),
+    baseURL = readEnv('SCALAR_BW0_GP_BASE_URL'),
     bearerAuth = readEnv('BEARER_AUTH') ?? null,
     basicAuthUsername = readEnv('BASIC_AUTH_USERNAME') ?? null,
     basicAuthPassword = readEnv('BASIC_AUTH_PASSWORD') ?? null,
     apiKeyHeader = readEnv('API_KEY_HEADER') ?? null,
+    apiKeyQuery = readEnv('API_KEY_QUERY') ?? null,
     apiKeyCookie = readEnv('API_KEY_COOKIE') ?? null,
     oAuth2 = readEnv('O_AUTH2') ?? null,
     openIDConnect = readEnv('OPEN_ID_CONNECT') ?? null,
-    apiKeyQuery = readEnv('SCALAR_69_T4_L_API_KEY_QUERY'),
-    webhookSecret = readEnv('SCALAR_69_T4_L_WEBHOOK_SECRET') ?? null,
+    webhookSecret = readEnv('SCALAR_BW0_GP_WEBHOOK_SECRET') ?? null,
     ...opts
   }: ClientOptions = {}) {
     const options: ClientOptions = {
@@ -242,10 +254,10 @@ export class ApiTest {
       basicAuthUsername,
       basicAuthPassword,
       apiKeyHeader,
+      apiKeyQuery,
       apiKeyCookie,
       oAuth2,
       openIDConnect,
-      apiKeyQuery,
       webhookSecret,
       ...opts,
       baseURL: baseURL || null,
@@ -253,26 +265,26 @@ export class ApiTest {
     const environment = options.environment ?? 'production';
     const baseURLOverridden = baseURL !== null && baseURL !== undefined && baseURL !== '';
     if (baseURLOverridden && options.environment)
-      throw new Errors.ApiTestError(
-        'Ambiguous URL; The `baseURL` option (or SCALAR_69_T4_L_BASE_URL env var) and the `environment` option are given. If you want to use the environment you must pass baseURL: null',
+      throw new Errors.ScalarGalaxyError(
+        'Ambiguous URL; The `baseURL` option (or SCALAR_BW0_GP_BASE_URL env var) and the `environment` option are given. If you want to use the environment you must pass baseURL: null',
       );
     const defaultBaseURL = environments[environment];
     this.baseURL = options.baseURL || defaultBaseURL;
-    this.timeout = options.timeout ?? ApiTest.DEFAULT_TIMEOUT /* 1 minute */;
+    this.timeout = options.timeout ?? ScalarGalaxy.DEFAULT_TIMEOUT /* 1 minute */;
     this.logger = options.logger ?? console;
     const defaultLogLevel = 'warn';
     // Set default logLevel early so that we can log a warning in parseLogLevel.
     this.logLevel = defaultLogLevel;
     this.logLevel =
       parseLogLevel(options.logLevel, 'ClientOptions.logLevel', this) ??
-      parseLogLevel(readEnv('SCALAR_69_T4_L_LOG'), 'process.env["SCALAR_69_T4_L_LOG"]', this) ??
+      parseLogLevel(readEnv('SCALAR_BW0_GP_LOG'), 'process.env["SCALAR_BW0_GP_LOG"]', this) ??
       defaultLogLevel;
     this.fetchOptions = options.fetchOptions;
     this.maxRetries = options.maxRetries ?? 2;
     this.fetch = options.fetch ?? Shims.getDefaultFetch();
     this.#encoder = Opts.FallbackEncoder;
 
-    const customHeadersEnv = readEnv('SCALAR_69_T4_L_CUSTOM_HEADERS');
+    const customHeadersEnv = readEnv('SCALAR_BW0_GP_CUSTOM_HEADERS');
     if (customHeadersEnv) {
       const parsed: Record<string, string> = {};
       for (const line of customHeadersEnv.split('\n')) {
@@ -292,10 +304,10 @@ export class ApiTest {
     this.basicAuthUsername = basicAuthUsername;
     this.basicAuthPassword = basicAuthPassword;
     this.apiKeyHeader = apiKeyHeader;
+    this.apiKeyQuery = apiKeyQuery;
     this.apiKeyCookie = apiKeyCookie;
     this.oAuth2 = oAuth2;
     this.openIDConnect = openIDConnect;
-    this.apiKeyQuery = apiKeyQuery;
     this.webhookSecret = webhookSecret;
   }
 
@@ -324,10 +336,10 @@ export class ApiTest {
       basicAuthUsername: this.basicAuthUsername,
       basicAuthPassword: this.basicAuthPassword,
       apiKeyHeader: this.apiKeyHeader,
+      apiKeyQuery: this.apiKeyQuery,
       apiKeyCookie: this.apiKeyCookie,
       oAuth2: this.oAuth2,
       openIDConnect: this.openIDConnect,
-      apiKeyQuery: this.apiKeyQuery,
       webhookSecret: this.webhookSecret,
       ...options,
       baseURL: nextBaseURL,
@@ -350,7 +362,7 @@ export class ApiTest {
   }
 
   private getUserAgent(): string {
-    return `${this.constructor.name}/JS ${VERSION}`;
+    return `ScalarGalaxy/JS ${VERSION}`;
   }
 
   protected defaultIdempotencyKey(): string {
@@ -536,7 +548,7 @@ export class ApiTest {
       throw new Errors.APIConnectionError({ cause: response });
     }
 
-    const responseInfo = `[${requestLogID}${retryLogStr}] ${req.method} ${url} ${
+    const responseInfo = `[${requestLogID}${retryLogStr}] ${req.method} ${redactUrl(url)} ${
       response.ok ? 'succeeded' : 'failed'
     } with status ${response.status} in ${headersTime - startTime}ms`;
 
@@ -635,7 +647,7 @@ export class ApiTest {
     }
 
     try {
-      // use undefined this binding; fetch errors if bound to something else in browser/cloudflare
+      // use undefined this binding; fetch errors if bound to something else in browsers and edge runtimes / workers
       return await this.fetch.call(undefined, url, fetchOptions);
     } finally {
       clearTimeout(timeout);
@@ -826,18 +838,20 @@ export class ApiTest {
     if (body == null) {
       return { bodyHeaders: undefined, body: undefined };
     }
-    const headers = buildHeaders([rawHeaders]);
+    // A `content-type` from either header bag says how the body is already encoded; the request's
+    // own wins over the client-wide default, as it does on the wire.
+    const headers = buildHeaders([this._options.defaultHeaders, rawHeaders]);
     if (
       // Pass raw type verbatim
       ArrayBuffer.isView(body) ||
       body instanceof ArrayBuffer ||
       body instanceof DataView ||
-      // Always pass strings through verbatim. The previous guard required a caller-set
-      // `content-type` and otherwise fell through to `FallbackEncoder`, which JSON.stringifies
-      // the value and labels it `application/json` — silently quoting plain-text payloads and
-      // mislabeling them as JSON. fetch defaults a string body to `text/plain;charset=UTF-8`
-      // when no `content-type` is set, which is a safer default than misclaiming JSON.
-      typeof body === 'string' ||
+      // A string is only already-encoded when something has said what it is encoded as.
+      // Generated call sites state the declared request media type, so a `text/plain` or
+      // ndjson payload reaches the wire byte-for-byte. A string with no `content-type` came
+      // from a body the document declared as JSON — `{ "type": "string" }` — and encoding it
+      // below is what puts the quotes the server parses for around it.
+      (typeof body === 'string' && headers.values.has('content-type')) ||
       // `Blob` is superset of `File`
       ((globalThis as any).Blob && body instanceof (globalThis as any).Blob) ||
       // `FormData` -> `multipart/form-data`
@@ -872,12 +886,12 @@ export class ApiTest {
     if (headerExplicitlyOmitted(options.headers, 'Authorization')) return;
     if (headers.has('X-API-Key')) return;
     if (headerExplicitlyOmitted(options.headers, 'X-API-Key')) return;
-    if (cookieHeaderHas(headers.get('Cookie'), 'api_key')) return;
     if (new URL(url).searchParams.has('api_key')) return;
+    if (cookieHeaderHas(headers.get('Cookie'), 'api_key')) return;
     throw new Errors.AuthenticationError(
       401,
       undefined,
-      'Could not resolve authentication method. Expected either bearerAuth, both basicAuthUsername and basicAuthPassword, oAuth2, openIDConnect, apiKeyHeader, apiKeyCookie or apiKeyQuery to be set. Or for one of the "Authorization" or "X-API-Key" headers to be explicitly omitted',
+      'Could not resolve authentication method. Expected either bearerAuth, both basicAuthUsername and basicAuthPassword, oAuth2, openIDConnect, apiKeyHeader, apiKeyQuery or apiKeyCookie to be set. Or for one of the "Authorization" or "X-API-Key" headers to be explicitly omitted',
       headers,
     );
   }
@@ -980,7 +994,8 @@ export class ApiTest {
   ): Promise<string | undefined> {
     if (value == null) return undefined;
     const token = typeof value === 'function' ? await value() : value;
-    if (!token) throw new Errors.ApiTestError(`Expected '${optionName}' to resolve to a non-empty string.`);
+    if (!token)
+      throw new Errors.ScalarGalaxyError(`Expected '${optionName}' to resolve to a non-empty string.`);
     return token;
   }
 
@@ -991,14 +1006,14 @@ export class ApiTest {
     if (value == null) return undefined;
     const token = typeof value === 'function' ? value() : value;
     if (typeof token !== 'string' || !token)
-      throw new Errors.ApiTestError(`Expected '${optionName}' to resolve to a non-empty string.`);
+      throw new Errors.ScalarGalaxyError(`Expected '${optionName}' to resolve to a non-empty string.`);
     return token;
   }
 
-  static ApiTest = this;
+  static ScalarGalaxy = this;
   static DEFAULT_TIMEOUT = 60000; // 1 minute
 
-  static ApiTestError = Errors.ApiTestError;
+  static ScalarGalaxyError = Errors.ScalarGalaxyError;
   static APIError = Errors.APIError;
   static APIConnectionError = Errors.APIConnectionError;
   static APIConnectionTimeoutError = Errors.APIConnectionTimeoutError;
@@ -1020,14 +1035,25 @@ export class ApiTest {
   webhooks: Webhooks = new Webhooks(this);
 }
 
-ApiTest.Planets = Planets;
-ApiTest.CelestialBodies = CelestialBodies;
-ApiTest.Authentication = Authentication;
-ApiTest.Webhooks = Webhooks;
+ScalarGalaxy.Planets = Planets;
+ScalarGalaxy.CelestialBodies = CelestialBodies;
+ScalarGalaxy.Authentication = Authentication;
+ScalarGalaxy.Webhooks = Webhooks;
 
-export declare namespace ApiTest {
+export declare namespace ScalarGalaxy {
   export type RequestOptions = Opts.RequestOptions;
-  export { Planets as Planets };
+  export {
+    Planets as Planets,
+    type Planet as Planet,
+    type PaginatedResource as PaginatedResource,
+    type Satellite as Satellite,
+    type PlanetListResponse as PlanetListResponse,
+    type PlanetUploadImageResponse as PlanetUploadImageResponse,
+    type PlanetListParams as PlanetListParams,
+    type PlanetCreateParams as PlanetCreateParams,
+    type PlanetUpdateParams as PlanetUpdateParams,
+    type PlanetUploadImageParams as PlanetUploadImageParams,
+  };
 
   export {
     CelestialBodies as CelestialBodies,

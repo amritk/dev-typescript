@@ -2,13 +2,13 @@
 
 import { castToError } from '../internal/errors';
 
-export class ApiTestError extends Error {}
+export class ScalarGalaxyError extends Error {}
 
 export class APIError<
   TStatus extends number | undefined = number | undefined,
   THeaders extends Headers | undefined = Headers | undefined,
   TError extends Object | undefined = Object | undefined,
-> extends ApiTestError {
+> extends ScalarGalaxyError {
   /** HTTP status for the response that caused the error */
   readonly status: TStatus;
   /** HTTP headers for the response that caused the error */
@@ -131,7 +131,7 @@ export class InternalServerError extends APIError<number, Headers> {}
 
 // Each class names itself, so a caught error reports its real class rather than the inherited
 // `Error` — what a log line, a `switch (error.name)`, and an error reporter grouping by name read.
-ApiTestError.prototype.name = 'ApiTestError';
+ScalarGalaxyError.prototype.name = 'ScalarGalaxyError';
 APIError.prototype.name = 'APIError';
 APIUserAbortError.prototype.name = 'APIUserAbortError';
 APIConnectionError.prototype.name = 'APIConnectionError';
