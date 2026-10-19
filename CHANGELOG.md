@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1](https://github.com/amritk/dev-typescript/compare/v0.5.0...v0.5.1) (2026-10-19)
+
+
+### Bug Fixes
+
+* record QA run for the release race (scalar/scalar-org[#7134](https://github.com/amritk/dev-typescript/issues/7134)) ([ec09f1a](https://github.com/amritk/dev-typescript/commit/ec09f1a68707973030846595093643b5decbb06b))
+
 ## [0.5.0](https://github.com/amritk/dev-typescript/compare/v0.3.1...v0.5.0) (2026-10-19)
 
 
