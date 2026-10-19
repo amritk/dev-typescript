@@ -60,14 +60,14 @@ Pass credentials to the generated client constructor. Environment variables are 
 
 | Option | Type | Default | Description |
 | --- | --- | --- | --- |
-| `bearerAuth` | `string \| provider` | - | JWT Bearer token authentication Defaults to BEARER_AUTH. |
-| `basicAuthUsername` | `string \| provider` | - | Basic HTTP authentication Defaults to BASIC_AUTH_USERNAME. |
-| `basicAuthPassword` | `string \| provider` | - | Basic HTTP authentication Defaults to BASIC_AUTH_PASSWORD. |
-| `apiKeyHeader` | `string \| provider` | - | API key request header Defaults to API_KEY_HEADER. |
-| `apiKeyQuery` | `string \| provider` | - | API key query parameter Defaults to API_KEY_QUERY. |
-| `apiKeyCookie` | `string \| provider` | - | API key browser cookie Defaults to API_KEY_COOKIE. |
-| `oAuth2` | `string \| provider` | - | OAuth 2.0 authentication Defaults to O_AUTH2. |
-| `openIDConnect` | `string \| provider` | - | OpenID Connect Authentication Defaults to OPEN_ID_CONNECT. |
+| `bearerAuth` | `string \| AuthTokenProvider \| null` | - | JWT Bearer token authentication Defaults to BEARER_AUTH. |
+| `basicAuthUsername` | `string \| AuthTokenProvider \| null` | - | Basic HTTP authentication Defaults to BASIC_AUTH_USERNAME. |
+| `basicAuthPassword` | `string \| AuthTokenProvider \| null` | - | Basic HTTP authentication Defaults to BASIC_AUTH_PASSWORD. |
+| `apiKeyHeader` | `string \| AuthTokenProvider \| null` | - | API key request header Defaults to API_KEY_HEADER. |
+| `apiKeyQuery` | `string \| AuthTokenProvider \| null` | - | API key query parameter Defaults to API_KEY_QUERY. |
+| `apiKeyCookie` | `string \| AuthTokenProvider \| null` | - | API key browser cookie Defaults to API_KEY_COOKIE. |
+| `oAuth2` | `string \| AuthTokenProvider \| null` | - | OAuth 2.0 authentication Defaults to O_AUTH2. |
+| `openIDConnect` | `string \| AuthTokenProvider \| null` | - | OpenID Connect Authentication Defaults to OPEN_ID_CONNECT. |
 
 Declared schemes:
 
@@ -121,14 +121,14 @@ const client = new ScalarGalaxy({
 
 | Option | Type | Default | Description |
 | --- | --- | --- | --- |
-| `bearerAuth` | `string \| AuthTokenProvider` | `process.env["BEARER_AUTH"]` | JWT Bearer token authentication |
-| `basicAuthUsername` | `string \| AuthTokenProvider` | `process.env["BASIC_AUTH_USERNAME"]` | Basic HTTP authentication |
-| `basicAuthPassword` | `string \| AuthTokenProvider` | `process.env["BASIC_AUTH_PASSWORD"]` | Basic HTTP authentication |
-| `apiKeyHeader` | `string \| AuthTokenProvider` | `process.env["API_KEY_HEADER"]` | API key request header |
-| `apiKeyQuery` | `string \| AuthTokenProvider` | `process.env["API_KEY_QUERY"]` | API key query parameter |
-| `apiKeyCookie` | `string \| AuthTokenProvider` | `process.env["API_KEY_COOKIE"]` | API key browser cookie |
-| `oAuth2` | `string \| AuthTokenProvider` | `process.env["O_AUTH2"]` | OAuth 2.0 authentication |
-| `openIDConnect` | `string \| AuthTokenProvider` | `process.env["OPEN_ID_CONNECT"]` | OpenID Connect Authentication |
+| `bearerAuth` | `string \| AuthTokenProvider \| null` | `process.env["BEARER_AUTH"]` | JWT Bearer token authentication |
+| `basicAuthUsername` | `string \| AuthTokenProvider \| null` | `process.env["BASIC_AUTH_USERNAME"]` | Basic HTTP authentication |
+| `basicAuthPassword` | `string \| AuthTokenProvider \| null` | `process.env["BASIC_AUTH_PASSWORD"]` | Basic HTTP authentication |
+| `apiKeyHeader` | `string \| AuthTokenProvider \| null` | `process.env["API_KEY_HEADER"]` | API key request header |
+| `apiKeyQuery` | `string \| AuthTokenProvider \| null` | `process.env["API_KEY_QUERY"]` | API key query parameter |
+| `apiKeyCookie` | `string \| AuthTokenProvider \| null` | `process.env["API_KEY_COOKIE"]` | API key browser cookie |
+| `oAuth2` | `string \| AuthTokenProvider \| null` | `process.env["O_AUTH2"]` | OAuth 2.0 authentication |
+| `openIDConnect` | `string \| AuthTokenProvider \| null` | `process.env["OPEN_ID_CONNECT"]` | OpenID Connect Authentication |
 | `environment` | `Environment` | - | Select one of the configured API environments. |
 | `baseURL` | `string \| null` | `process.env["SCALAR_BW0_GP_BASE_URL"]` | Override the default API base URL. Pass `null` when selecting a configured environment. |
 | `timeout` | `number` | `60000` | Maximum time in milliseconds to wait for a response before aborting a request. |
