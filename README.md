@@ -1,3 +1,3 @@
 # Scalar Galaxy TypeScript API Library
 
-Generated with [Stainless](https://stainless.com).
+Generated with Stainless. Now with moons.
