@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.5.2](https://github.com/amritk/dev-typescript/compare/v0.5.1...v0.5.2) (2026-10-20)
+
+
+### Chores
+
+* **api:** regenerate SDK ([5307a7d](https://github.com/amritk/dev-typescript/commit/5307a7ddf7e92dc56e322e3ef81b6e8c78f0810f))
+* **api:** update generated SDK content ([652bef4](https://github.com/amritk/dev-typescript/commit/652bef4cf22c5563bf40a83c86f6daf226e34db9))
+
 ## [0.5.1](https://github.com/amritk/dev-typescript/compare/v0.5.0...v0.5.1) (2026-10-19)
 
 
