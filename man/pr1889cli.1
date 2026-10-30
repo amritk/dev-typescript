@@ -1,0 +1,222 @@
+.\" File generated from our OpenAPI spec by Scalar. Do not edit.
+.TH "PR1889CLI" "1" "" "pr1889cli" "Dedalus Manual"
+.SH "NAME"
+pr1889cli \- command line interface for the Dedalus REST API
+.SH "SYNOPSIS"
+.B pr1889cli
+[\fIglobal options\fR] \fIcommand\fR [\fIsubcommand\fR] [\fIarguments\fR] [\fIoptions\fR]
+.SH "DESCRIPTION"
+pr1889cli calls the Dedalus REST API from the command line. Commands are grouped by resource, and every command prints its result to standard output in the configured format.
+.PP
+Controlplane API for Dedalus Cloud Services (DCS).
+.SH "GLOBAL OPTIONS"
+.TP
+\fB\-\-base\-url\fR \fI<url>\fR
+Override the base URL for API requests.
+.TP
+\fB\-\-timeout\fR \fI<ms>\fR
+Request timeout in milliseconds.
+.TP
+\fB\-\-max\-retries\fR \fI<count>\fR
+Number of retries for retryable failures.
+.TP
+\fB\-\-format\fR \fI<format>\fR
+Output format: auto, json, jsonl, pretty, raw, toon, yaml.
+.TP
+\fB\-\-format\-error\fR \fI<format>\fR
+Error output format: auto, json, jsonl, pretty, raw, toon, yaml.
+.TP
+\fB\-\-transform\fR \fI<path>\fR
+Dot\-path transform for data output.
+.TP
+\fB\-\-transform\-error\fR \fI<path>\fR
+Dot\-path transform for error output.
+.TP
+\fB\-r\fR, \fB\-\-raw\-output\fR
+Print transformed string values without JSON quotes.
+.TP
+\fB\-\-debug\fR
+Enable SDK debug logging on standard error.
+.TP
+\fB\-\-api\-key\fR \fI<value>\fR
+Dedalus API key in Authorization: Bearer <key>. Can also be set with the DEDALUS_API_KEY environment variable.
+.TP
+\fB\-\-x\-api\-key\fR \fI<value>\fR
+Dedalus API key. Alternative to Bearer token. Can also be set with the DEDALUS_X_API_KEY environment variable.
+.TP
+\fB\-\-dedalus\-org\-id\fR \fI<value>\fR
+Organization ID header for all DCS requests. Can also be set with the DEDALUS_ORG_ID environment variable.
+.SH "COMMANDS"
+.TP
+\fBpr1889cli usage retrieve\fR
+Get usage summary. See pr1889cli\-usage\-retrieve(1).
+.TP
+\fBpr1889cli usage machine\-compute\fR
+List machine compute usage breakdown. See pr1889cli\-usage\-machine\-compute(1).
+.TP
+\fBpr1889cli usage machine\-storage\fR
+List machine storage usage breakdown. See pr1889cli\-usage\-machine\-storage(1).
+.TP
+\fBpr1889cli machines list\fR
+List machines. See pr1889cli\-machines\-list(1).
+.TP
+\fBpr1889cli machines create\fR
+Create machine. See pr1889cli\-machines\-create(1).
+.TP
+\fBpr1889cli machines retrieve\fR
+Get machine. See pr1889cli\-machines\-retrieve(1).
+.TP
+\fBpr1889cli machines update\fR
+Update machine. See pr1889cli\-machines\-update(1).
+.TP
+\fBpr1889cli machines delete\fR
+Destroy machine. See pr1889cli\-machines\-delete(1).
+.TP
+\fBpr1889cli machines watch\fR
+Watch machine lifecycle status. See pr1889cli\-machines\-watch(1).
+.TP
+\fBpr1889cli machines sleep\fR
+Sleep a running machine. See pr1889cli\-machines\-sleep(1).
+.TP
+\fBpr1889cli machines wake\fR
+Wake a sleeping machine. See pr1889cli\-machines\-wake(1).
+.TP
+\fBpr1889cli machines:artifacts list\fR
+List artifacts. See pr1889cli\-machines\-artifacts\-list(1).
+.TP
+\fBpr1889cli machines:artifacts retrieve\fR
+Get artifact. See pr1889cli\-machines\-artifacts\-retrieve(1).
+.TP
+\fBpr1889cli machines:artifacts delete\fR
+Delete artifact. See pr1889cli\-machines\-artifacts\-delete(1).
+.TP
+\fBpr1889cli machines:previews list\fR
+List previews. See pr1889cli\-machines\-previews\-list(1).
+.TP
+\fBpr1889cli machines:previews create\fR
+Create preview. See pr1889cli\-machines\-previews\-create(1).
+.TP
+\fBpr1889cli machines:previews retrieve\fR
+Get preview. See pr1889cli\-machines\-previews\-retrieve(1).
+.TP
+\fBpr1889cli machines:previews delete\fR
+Delete preview. See pr1889cli\-machines\-previews\-delete(1).
+.TP
+\fBpr1889cli machines:ssh list\fR
+List SSH sessions. See pr1889cli\-machines\-ssh\-list(1).
+.TP
+\fBpr1889cli machines:ssh create\fR
+Create SSH session. See pr1889cli\-machines\-ssh\-create(1).
+.TP
+\fBpr1889cli machines:ssh retrieve\fR
+Get SSH session. See pr1889cli\-machines\-ssh\-retrieve(1).
+.TP
+\fBpr1889cli machines:ssh delete\fR
+Delete SSH session. See pr1889cli\-machines\-ssh\-delete(1).
+.TP
+\fBpr1889cli machines:executions list\fR
+List executions. See pr1889cli\-machines\-executions\-list(1).
+.TP
+\fBpr1889cli machines:executions create\fR
+Create execution. See pr1889cli\-machines\-executions\-create(1).
+.TP
+\fBpr1889cli machines:executions retrieve\fR
+Get execution. See pr1889cli\-machines\-executions\-retrieve(1).
+.TP
+\fBpr1889cli machines:executions delete\fR
+Delete execution. See pr1889cli\-machines\-executions\-delete(1).
+.TP
+\fBpr1889cli machines:executions output\fR
+Get execution output. See pr1889cli\-machines\-executions\-output(1).
+.TP
+\fBpr1889cli machines:executions events\fR
+List execution events. See pr1889cli\-machines\-executions\-events(1).
+.TP
+\fBpr1889cli machines:terminals list\fR
+List terminals. See pr1889cli\-machines\-terminals\-list(1).
+.TP
+\fBpr1889cli machines:terminals create\fR
+Create terminal. See pr1889cli\-machines\-terminals\-create(1).
+.TP
+\fBpr1889cli machines:terminals retrieve\fR
+Get terminal. See pr1889cli\-machines\-terminals\-retrieve(1).
+.TP
+\fBpr1889cli machines:terminals delete\fR
+Delete terminal. See pr1889cli\-machines\-terminals\-delete(1).
+.TP
+\fBpr1889cli machines:terminals connect\fR
+Connect to terminal WebSocket stream. See pr1889cli\-machines\-terminals\-connect(1).
+.TP
+\fBpr1889cli completion\fR
+Print a shell completion script. See pr1889cli\-completion(1).
+.TP
+\fBpr1889cli login\fR
+Sign in and save credentials for later commands. See pr1889cli\-login(1).
+.TP
+\fBpr1889cli logout\fR
+Forget saved credentials. See pr1889cli\-logout(1).
+.TP
+\fBpr1889cli upgrade\fR
+Upgrade to the latest release, through the package manager that owns this installation when one does. See pr1889cli\-upgrade(1).
+.TP
+\fBpr1889cli uninstall\fR
+Print how to remove this installation. See pr1889cli\-uninstall(1).
+.SH "FILE ARGUMENTS"
+Any command flag or credential reads its value from a file when the value begins with @. A flag shown with a <path> value uploads a file and takes its path with or without the @. The global options above are read exactly as written.
+.PP
+.RS 4
+.nf
+pr1889cli COMMAND \-\-FLAG @./body.json    # contents of the file
+pr1889cli COMMAND \-\-FLAG @file://./n.txt # always sent as text
+pr1889cli COMMAND \-\-FLAG @data://./l.png # always base64\-encoded
+pr1889cli COMMAND \-\-FLAG '\e@literal'    # a value that begins with @
+.fi
+.RE
+.SH "SHELL COMPLETION"
+pr1889cli completion <shell> prints a completion script for bash, zsh, and fish. Load it from your shell startup file:
+.PP
+.RS 4
+.nf
+eval "$(pr1889cli completion bash)"
+eval "$(pr1889cli completion zsh)"
+pr1889cli completion fish | source
+.fi
+.RE
+.SH "ENVIRONMENT"
+.TP
+\fBDEDALUS_API_KEY\fR
+Fallback for \-\-api\-key when the flag is not passed.
+.TP
+\fBDEDALUS_X_API_KEY\fR
+Fallback for \-\-x\-api\-key when the flag is not passed.
+.TP
+\fBDEDALUS_ORG_ID\fR
+Fallback for \-\-dedalus\-org\-id when the flag is not passed.
+.SH "EXIT STATUS"
+.TP
+\fB0\fR
+The command completed successfully.
+.TP
+\fB1\fR
+The request failed for an unclassified reason. Reported as error.
+.TP
+\fB2\fR
+The command was invoked incorrectly (missing or invalid arguments).
+.TP
+\fB10\fR
+Authentication or authorization failed (HTTP 401 or 403). Reported as auth\-failed.
+.TP
+\fB11\fR
+The requested resource does not exist (HTTP 404). Reported as not\-found.
+.TP
+\fB12\fR
+The request was rate limited (HTTP 429). Reported as rate\-limited.
+.TP
+\fB13\fR
+The request was rejected (any other HTTP 4xx). Reported as client\-error.
+.TP
+\fB14\fR
+The API failed to handle the request (HTTP 5xx). Reported as server\-error.
+.TP
+\fB15\fR
+The API could not be reached, or the request timed out. Reported as connection\-error.

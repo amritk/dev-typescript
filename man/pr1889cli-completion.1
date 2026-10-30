@@ -1,0 +1,35 @@
+.\" File generated from our OpenAPI spec by Scalar. Do not edit.
+.TH "PR1889CLI\-COMPLETION" "1" "" "pr1889cli" "Dedalus Manual"
+.SH "NAME"
+pr1889cli\-completion \- print a shell completion script
+.SH "SYNOPSIS"
+.B pr1889cli completion
+\fIshell\fR
+.SH "DESCRIPTION"
+Prints a completion script for the named shell to standard output. The script is generated from the same command table pr1889cli itself is built from, so it always describes this version's commands and flags. Supported shells are bash, zsh, and fish.
+.SH "ARGUMENTS"
+.TP
+\fIshell\fR
+The shell to print a script for: bash, zsh, and fish. Required.
+.SH "EXAMPLES"
+Load completions for the current shell by adding one of these to its startup file:
+.PP
+.RS 4
+.nf
+eval "$(pr1889cli completion bash)"
+eval "$(pr1889cli completion zsh)"
+pr1889cli completion fish | source
+.fi
+.RE
+.SH "EXIT STATUS"
+.TP
+\fB0\fR
+The command completed successfully.
+.TP
+\fB1\fR
+The command failed. The reason is reported on standard error.
+.TP
+\fB2\fR
+The command was invoked incorrectly (missing or invalid arguments).
+.SH "SEE ALSO"
+.BR pr1889cli (1)
