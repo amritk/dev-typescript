@@ -3,8 +3,10 @@
 export { Planets, CelestialBodies, Authentication, Webhooks } from './resources/index';
 export type {
   Planet,
+  PlanetParam,
   PaginatedResource,
   Satellite,
+  SatelliteParam,
   PlanetListParams,
   PlanetListResponse,
   PlanetCreateParams,
@@ -14,6 +16,7 @@ export type {
   CelestialBody,
   CelestialBodyCreateParams,
   User,
+  UserParam,
   Token,
   AuthenticationCreateUserParams,
   AuthenticationCreateTokenParams,
