@@ -234,6 +234,102 @@ export namespace Planet {
 }
 
 /**
+ * A planet in the Scalar Galaxy
+ *
+ * The request shape of `Planet`: fields the server sets (`readOnly`) are left out, except a discriminator the schema declares, and write-only fields are included.
+ */
+export interface PlanetParam {
+  name: string;
+  type: 'planet' | 'terrestrial' | 'gas_giant' | 'ice_giant' | 'dwarf' | 'super_earth';
+  description?: string | null;
+  /**
+   * A score from 0 to 1 indicating potential habitability
+   * @format float
+   * @minimum 0
+   * @maximum 1
+   */
+  habitabilityIndex?: number;
+  physicalProperties?: PlanetParam.PhysicalProperties;
+  /**
+   * Atmospheric composition
+   */
+  atmosphere?: Array<PlanetParam.Atmosphere>;
+  /**
+   * @format date-time
+   */
+  discoveredAt?: string;
+  image?: string | null;
+  satellites?: Array<SatelliteParam>;
+  /**
+   * A user
+   */
+  creator?: AuthenticationAPI.UserParam;
+  tags?: Array<string>;
+  /**
+   * URL which gets invoked upon a successful operation
+   * @format uri
+   */
+  successCallbackUrl?: string;
+  /**
+   * URL which gets invoked upon a failed operation
+   * @format uri
+   */
+  failureCallbackUrl?: string;
+}
+
+export namespace PlanetParam {
+  export interface PhysicalProperties {
+    /**
+     * Mass in Earth masses (must be greater than 0)
+     * @format float
+     * @exclusiveMinimum 0
+     */
+    mass?: number;
+    /**
+     * Radius in Earth radii (must be greater than 0)
+     * @format float
+     * @exclusiveMinimum 0
+     */
+    radius?: number;
+    /**
+     * Surface gravity in Earth g
+     * @format float
+     */
+    gravity?: number;
+    temperature?: PhysicalProperties.Temperature;
+  }
+
+  export namespace PhysicalProperties {
+    export interface Temperature {
+      /**
+       * Minimum temperature in Kelvin
+       * @format float
+       */
+      min?: number;
+      /**
+       * Maximum temperature in Kelvin
+       * @format float
+       */
+      max?: number;
+      /**
+       * Average temperature in Kelvin
+       * @format float
+       */
+      average?: number;
+    }
+  }
+
+  export interface Atmosphere {
+    compound?: string;
+    /**
+     * @format float
+     * @exclusiveMaximum 100
+     */
+    percentage?: number;
+  }
+}
+
+/**
  * A paginated resource
  */
 export interface PaginatedResource {
@@ -297,6 +393,43 @@ export namespace Satellite {
   }
 }
 
+/**
+ * Every satellite in the Scalar Galaxy
+ *
+ * The request shape of `Satellite`: fields the server sets (`readOnly`) are left out, except a discriminator the schema declares, and write-only fields are included.
+ */
+export interface SatelliteParam {
+  name: string;
+  type: 'satellite' | 'moon' | 'asteroid' | 'comet';
+  description?: string | null;
+  /**
+   * Diameter in kilometers
+   * @format float
+   */
+  diameter?: number;
+  orbit?: SatelliteParam.Orbit;
+}
+
+export namespace SatelliteParam {
+  export interface Orbit {
+    /**
+     * The ID of the planet this satellite orbits
+     * @format int64
+     */
+    planetId?: number;
+    /**
+     * Orbital period in Earth days
+     * @format float
+     */
+    orbitalPeriod?: number;
+    /**
+     * Average distance from the planet in kilometers
+     * @format float
+     */
+    distance?: number;
+  }
+}
+
 export interface PlanetListParams {
   /**
    * The number of items to return
@@ -337,11 +470,11 @@ export interface PlanetCreateParams {
    */
   discoveredAt?: string;
   image?: string | null;
-  satellites?: Array<Satellite>;
+  satellites?: Array<SatelliteParam>;
   /**
    * A user
    */
-  creator?: AuthenticationAPI.User;
+  creator?: AuthenticationAPI.UserParam;
   tags?: Array<string>;
   /**
    * URL which gets invoked upon a successful operation
@@ -428,11 +561,11 @@ export interface PlanetUpdateParams {
    */
   discoveredAt?: string;
   image?: string | null;
-  satellites?: Array<Satellite>;
+  satellites?: Array<SatelliteParam>;
   /**
    * A user
    */
-  creator?: AuthenticationAPI.User;
+  creator?: AuthenticationAPI.UserParam;
   tags?: Array<string>;
   /**
    * URL which gets invoked upon a successful operation
@@ -529,8 +662,10 @@ export interface PlanetUploadImageResponse {
 export declare namespace Planets {
   export {
     type Planet as Planet,
+    type PlanetParam as PlanetParam,
     type PaginatedResource as PaginatedResource,
     type Satellite as Satellite,
+    type SatelliteParam as SatelliteParam,
     type PlanetListResponse as PlanetListResponse,
     type PlanetUploadImageResponse as PlanetUploadImageResponse,
     type PlanetListParams as PlanetListParams,

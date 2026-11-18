@@ -32,7 +32,7 @@ export class CelestialBodies extends APIResource {
  */
 export type CelestialBody = PlanetsAPI.Planet | PlanetsAPI.Satellite;
 
-export type CelestialBodyCreateParams = PlanetsAPI.Planet | PlanetsAPI.Satellite;
+export type CelestialBodyCreateParams = PlanetsAPI.PlanetParam | PlanetsAPI.SatelliteParam;
 export declare namespace CelestialBodies {
   export { type CelestialBody as CelestialBody, type CelestialBodyCreateParams as CelestialBodyCreateParams };
 }

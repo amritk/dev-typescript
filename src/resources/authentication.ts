@@ -72,6 +72,15 @@ export interface User {
 }
 
 /**
+ * A user
+ *
+ * The request shape of `User`: fields the server sets (`readOnly`) are left out, except a discriminator the schema declares, and write-only fields are included.
+ */
+export interface UserParam {
+  name?: string;
+}
+
+/**
  * A token to authenticate a user
  */
 export interface Token {
@@ -97,6 +106,7 @@ export interface AuthenticationCreateTokenParams {
 export declare namespace Authentication {
   export {
     type User as User,
+    type UserParam as UserParam,
     type Token as Token,
     type AuthenticationCreateUserParams as AuthenticationCreateUserParams,
     type AuthenticationCreateTokenParams as AuthenticationCreateTokenParams,

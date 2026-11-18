@@ -3,8 +3,10 @@
 export { Planets } from './planets';
 export type {
   Planet,
+  PlanetParam,
   PaginatedResource,
   Satellite,
+  SatelliteParam,
   PlanetListParams,
   PlanetListResponse,
   PlanetCreateParams,
@@ -17,6 +19,7 @@ export type { CelestialBody, CelestialBodyCreateParams } from './celestial-bodie
 export { Authentication } from './authentication';
 export type {
   User,
+  UserParam,
   Token,
   AuthenticationCreateUserParams,
   AuthenticationCreateTokenParams,

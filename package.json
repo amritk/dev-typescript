@@ -7,6 +7,10 @@
     "type": "git",
     "url": "git+https://github.com/amritk/dev-typescript.git"
   },
+  "bugs": {
+    "url": "https://github.com/amritk/dev-typescript/issues"
+  },
+  "homepage": "https://github.com/amritk/dev-typescript",
   "type": "module",
   "sideEffects": false,
   "main": "./dist/cjs/index.js",
@@ -46,13 +50,13 @@
   "scripts": {
     "build": "tsc -p tsconfig.json && tsc -p tsconfig.cjs.json && node scripts/finalize-build.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.cjs.json --noEmit",
+    "test": "vitest run",
     "prepublishOnly": "npm run build"
   },
-  "dependencies": {
-    "standardwebhooks": "^1.0.0"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "typescript": "^6.0.0"
+    "typescript": "^6.0.0",
+    "vitest": "^4.1.7"
   },
   "license": "Apache-2.0"
 }
